@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Math Adventures Levels 5–7 · Tutor training</title>
+<script>
+/* Language: ?lang=pt (default) or ?lang=en loads assets/content-<lang>.js */
+(function(){
+  var m = /[?&]lang=([a-z]{2})/.exec(location.search);
+  var lang = m && ['pt','en'].indexOf(m[1]) >= 0 ? m[1] : 'pt';
+  window.COURSE_LANGS = [['pt','PT'],['en','EN']];
+  document.write('<script src="assets/content-' + lang + '.js"><\/script>');
+})();
+</script>
+<script>
+if (!window.COURSE){ /* the language file is missing or broken: fall back to Portuguese */
+  document.write('<script src="assets/content-pt.js"><\/script>');
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body>
+<nav class="nav" id="nav"></nav>
+<main id="view"></main>
+<div class="ovl" id="modal"></div>
+<div class="ovl survey-ovl" id="startSurvey"></div>
+<canvas id="confetti"></canvas>
+<footer class="foot"><span id="footTxt"></span><button id="devLink" type="button">🛠 Developer</button></footer>
+<script src="assets/engine.js"></script>
+</body>
+</html>
