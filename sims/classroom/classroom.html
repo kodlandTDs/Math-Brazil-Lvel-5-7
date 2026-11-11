@@ -1021,7 +1021,7 @@ function renderCoach(){
 
 // Tell the training that embeds this page (or opened it in another tab) that the simulation is complete
 function notifyDone(){
-  const msg = { type:'em-sim-done', sim:'mathClassroom' };
+  const msg = { type:'em-sim-done', sim:'classroomSim' };
   try{ parent.postMessage(msg, '*'); }catch(e){}
   try{ if (window.opener) window.opener.postMessage(msg, '*'); }catch(e){}
 }

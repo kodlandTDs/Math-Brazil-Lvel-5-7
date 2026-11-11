@@ -526,7 +526,8 @@ function renderSim(box){
   };
 }
 addEventListener('message', e => {
-  const d = e.data || {};
+  const d = Object.assign({}, e.data || {});
+  if (d.sim === 'mathClassroom') d.sim = 'classroomSim';   // older copies of the Classroom simulation
   if (d.type !== 'em-sim-done' || !C.sims || !C.sims[d.sim]) return;
   if (!flag(d.sim)) confetti(80);
   setFlag(d.sim, true);
