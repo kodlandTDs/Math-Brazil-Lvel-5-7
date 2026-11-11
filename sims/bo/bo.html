@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backoffice</title>
+<script>
+/* Language: ?lang=pt|en loads assets/content-xx.js (default: Portuguese) */
+(function(){ var m = /[?&]lang=([a-z]{2})/.exec(location.search); window.LANG = m ? m[1] : 'pt';
+  document.write('<script src="assets/content-' + LANG + '.js"><\/script>'); })();
+</script>
+<script>if (!window.CONTENT){ window.LANG = 'pt'; document.write('<script src="assets/content-pt.js"><\/script>'); }</script>
+<style>
+:root{
+  --bg:#F3F4F8; --side:#FFFFFF; --card:#FFFFFF; --soft:#F6F7FB; --line:#E6E8F0; --line2:#D9DCE8;
+  --text:#1F2433; --text2:#454B5E; --muted:#7B8094; --accent:#5B6CF5; --accent-d:#4655DE; --accent-bg:#EEF0FE;
+  --green:#22A55B; --green-bg:#E6F7EC; --red:#E5484D; --yellow-bg:#FFF4D6; --orange:#E39A2D;
+  --hl:#FFB020; --r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Inter,'Segoe UI',system-ui,sans-serif;font-size:14px;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+a{color:var(--accent);cursor:pointer;text-decoration:none}
+a:hover{text-decoration:underline}
+.app{display:flex;min-height:100vh}
+.side{width:64px;background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:16px 0;position:sticky;top:0;height:100vh;flex-shrink:0}
+.logo{width:30px;height:30px;border-radius:8px;background:var(--accent);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:26px}
+.sico{width:40px;height:34px;border:0;background:transparent;color:var(--muted);border-radius:999px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.sico:hover{background:var(--soft);color:var(--text)}
+.sico.on{background:var(--accent-bg);color:var(--accent)}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 26px;border-bottom:1px solid var(--line);background:#fff}
+.badge{background:#FFF4D6;color:#8A5A00;border:1px solid #F3D48A;font-weight:700;font-size:12px;padding:5px 12px;border-radius:999px}
+.tbtn{background:var(--hl);color:#2a1d00;border:0;border-radius:999px;padding:8px 15px;font-weight:800;font-size:12.5px}
+.content{padding:24px 28px 120px}
+h1.pt{font-size:24px;font-weight:600;margin-bottom:16px}
+.btns{display:flex;gap:8px;margin-bottom:12px}
+.b{border:0;border-radius:8px;padding:8px 14px;font-weight:600;font-size:13px;background:var(--accent);color:#fff}
+.b.ghost{background:#fff;color:var(--text2);border:1px solid var(--line2)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 1px 3px rgba(20,24,60,.05);overflow:hidden;margin-bottom:16px}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--text2);font-weight:600;padding:12px 14px;background:var(--soft);white-space:nowrap}
+td{padding:12px 14px;border-top:1px solid var(--line);font-size:13px;color:var(--text2);white-space:nowrap}
+.foot{display:flex;justify-content:flex-end;gap:16px;padding:12px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--line)}
+.empty td{text-align:center;color:var(--muted);font-style:italic;padding:22px;white-space:normal}
+.ok{color:var(--green);font-weight:700}.no{color:var(--red);font-weight:700}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-weight:600;font-size:13px;margin-bottom:14px}
+.chead{display:flex;justify-content:space-between;gap:20px;padding:20px 22px}
+.chead h2{font-size:17px;font-weight:600;margin-bottom:10px}
+.pills{display:flex;gap:10px;margin-bottom:12px}
+.pill{display:inline-block;min-width:150px;text-align:center;padding:3px 14px;border-radius:999px;font-size:11.5px;font-weight:600}
+.pill.g{background:#DDF6E4;color:#1E8E4A}.pill.y{background:#FFF0CC;color:#B07A00}
+.fld{display:flex;align-items:center;gap:8px;padding:3px 0;font-size:13px;color:var(--text2)}
+.fld b{color:var(--text);font-weight:600}
+.cimg{width:170px;height:120px;border-radius:12px;background:linear-gradient(135deg,#E8F7C9,#FBD4F0);display:flex;align-items:center;justify-content:center;font-size:52px;flex-shrink:0}
+.tabs{display:flex;gap:8px;margin:6px 0 12px}
+.tab{border:0;background:transparent;color:var(--text2);font-weight:600;font-size:13px;padding:8px 14px;border-radius:8px;display:flex;gap:6px;align-items:center}
+.tab.on{background:var(--accent);color:#fff}
+.sel{display:inline-flex;flex-direction:column;border:1px solid var(--accent);border-radius:8px;padding:4px 12px 7px;min-width:320px;background:#fff;margin-bottom:14px}
+.sel small{font-size:10.5px;color:var(--accent)}
+.sel span{font-size:13px;display:flex;justify-content:space-between;gap:20px}
+.bh{padding:14px 16px 4px;font-size:14px;font-weight:600}
+.bhb{padding:4px 16px 10px}
+/* lesson card editor */
+.ed{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.edtop{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.edtop .t{font-weight:600}
+.edc{display:flex;align-items:center;gap:12px}
+.arr{width:30px;height:30px;border:1px solid var(--line2);border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center}
+.pv{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;padding:4px 8px;border-radius:8px}
+.sw{width:32px;height:18px;border-radius:999px;background:#C9CDDA;position:relative;transition:.2s}
+.sw::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:.2s}
+.sw.on{background:var(--accent)}.sw.on::after{left:16px}
+.edbody{max-height:620px;overflow-y:auto;padding:22px 0 30px}
+.page{max-width:600px;margin:0 auto;padding:0 16px}
+.page img.ban{width:100%;border-radius:12px;display:block;margin-bottom:16px}
+.page h1{font-size:28px;font-weight:800;margin:6px 0 12px;font-family:'Archivo Black',Inter,sans-serif}
+.page h3{font-size:18px;font-weight:800;margin:16px 0 8px}
+.page h4{font-size:15px;font-weight:800;margin:6px 0 12px}
+.page p,.page li{font-size:14px;line-height:1.6;color:var(--text2)}
+.page ol,.page ul{margin:4px 0 8px 22px}
+.mc{display:flex;gap:16px;align-items:center;margin:10px 0}
+.mc img{width:46%;border-radius:12px;background:#FDECEC;padding:10px}
+.spo{border:1px solid var(--line2);border-radius:10px;padding:10px 14px;margin:8px 0;font-weight:600;font-size:13.5px;color:var(--text)}
+.spo::before{content:'▸ ';color:var(--muted)}
+.tn{border:1.5px dashed #E8B24A;background:#FFFCF4;border-radius:12px;padding:14px 18px;margin:14px 0}
+.tn .l{color:#C98500;font-size:12px;font-weight:600;margin-bottom:8px}
+.tn p{margin-bottom:8px}
+.tn h2{font-size:18px;font-weight:800;margin:4px 0 10px;color:var(--text)}
+.tn details{border:1px solid #F1DDB0;border-radius:8px;padding:8px 12px;margin:8px 0;background:#fff}
+.tn summary{cursor:pointer;font-weight:700;font-size:13.5px}
+.tn table td,.tn table th{white-space:normal;font-size:12.5px;padding:7px 8px}
+.slide{border:1px solid var(--line2);border-radius:10px;margin:10px 0;background:#fff}
+.slide>summary{padding:10px 14px;font-weight:700;cursor:pointer}
+.slide>div{padding:0 12px 10px}
+.prev .tn,.prev .slide{display:none}
+/* tour */
+.hl{outline:3px solid var(--hl)!important;outline-offset:3px;border-radius:10px;animation:pulse 1.3s infinite;position:relative;z-index:5}
+@keyframes pulse{0%,100%{outline-color:#FFB020}50%{outline-color:#FFE29A}}
+.tour{position:fixed;right:20px;bottom:20px;width:min(370px,92vw);background:#fff;border:2px solid var(--hl);border-radius:16px;padding:16px 18px;box-shadow:0 14px 40px rgba(20,24,60,.25);z-index:999;display:none;flex-direction:column;gap:9px}
+.tour .st{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#C98500}
+.tour .bar{height:5px;background:#F1F2F7;border-radius:999px;overflow:hidden}.tour .bar i{display:block;height:100%;background:var(--hl);transition:width .3s}
+.tour .tt{font-size:15px;font-weight:800}
+.tour .bd{font-size:13px;line-height:1.55;color:var(--text2)}
+.tour .bd b{color:var(--text)}
+.tour .ac{display:flex;justify-content:space-between;align-items:center}
+.tour .hint{font-size:12px;color:#C98500;font-weight:700}
+.tour .nx{background:var(--text);color:#fff;border:0;border-radius:8px;padding:9px 16px;font-weight:700}
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;z-index:1000;max-width:90vw}
+.done{position:fixed;inset:0;background:rgba(15,18,34,.6);display:flex;align-items:center;justify-content:center;z-index:2000;padding:16px}
+.done>div{background:#fff;border-radius:20px;max-width:520px;padding:28px;text-align:center;border-top:8px solid var(--green)}
+.done h2{margin:10px 0 8px}.done p{color:var(--text2);line-height:1.6;margin:6px 0}
+.done .row{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+@media(max-width:800px){.content{padding:16px}.chead{flex-direction:column}.cimg{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="logo">k</div>
+    <button class="sico" data-page="courses" title="Courses"></button>
+    <button class="sico" data-page="groups" title="Groups"></button>
+  </aside>
+  <div class="main">
+    <header class="top"><span class="badge" id="badge"></span><button class="tbtn" id="tourBtn"></button></header>
+    <main class="content" id="content"></main>
+  </div>
+</div>
+<div class="tour" id="tour"><span class="st" id="tSt"></span><div class="bar"><i id="tBar"></i></div><div class="tt" id="tTt"></div><div class="bd" id="tBd"></div><div class="ac"><span class="hint" id="tHint"></span><button class="nx" id="tNx"></button></div></div>
+<script>
+'use strict';
+const C = CONTENT, U = C.ui, L = C.lesson;
+document.documentElement.lang = C.lang === 'pt' ? 'pt-BR' : 'en';
+document.title = U.pageTitle;
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const I = {
+  book:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8"/></svg>',
+  users:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.3"/><path d="M2.5 21c0-3.5 3-6 6.5-6s6.5 2.5 6.5 6"/><circle cx="17.5" cy="8.5" r="2.6"/><path d="M15.5 14.6c3 .1 6 2.2 6 6.4"/></svg>',
+  back:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>',
+  next:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>'
+};
+$('[data-page="courses"]').innerHTML = I.book; $('[data-page="groups"]').innerHTML = I.users;
+$('#badge').textContent = U.badge; $('#tourBtn').textContent = U.tourBtn;
+
+/* ---------- demo data (from the real course 2163) ---------- */
+const COURSE = '[2163]Aventuras Matemáticas Nível 5 PL[2026][9-11][60 min][40 L][Brazil][in progress]';
+const LESSON1 = '1. Ponto, reta, semirreta e segmentos de reta.';
+// [number, id, title, theory, project, add, final, maxScore]
+const IN_CLASS = [
+  [10,215276,'Boas-vindas!',1,0,0,0,0],[11,215277,'Bem-vindo à aula!',1,0,0,0,0],[14,215278,'Atividade de apresentação',1,0,0,0,0],
+  [15,215279,'Escritório de arquitetura',0,0,0,0,18],[16,215280,'Pontos',0,0,0,0,18],[17,215281,'Segmento de reta',0,0,0,0,18],
+  [18,215282,'Oficina de geometria',0,1,0,0,18],[19,215283,'Atividade Extra',0,0,1,0,0],[20,215284,'Indo para a Atividade Individual!',1,0,0,0,0],
+  [21,215285,'Atividade Individual!',0,0,0,0,18],[22,215286,'Avaliação da aula',1,0,0,0,0],[23,215287,'Como você está se sentindo depois da aula?',1,0,0,0,0],
+  [24,215288,'Lição de casa',1,0,0,0,0]
+];
+const HOMEWORK = [[1,215289,'Lição de casa',0,0,0,0,6]];
+
+let state = { page:'courses', tab:'lessons', preview:false };
+function go(p){ state.page = p; render(); fire('go-' + p); }
+function tab(t){ state.tab = t; render(); fire('tab-' + t); }
+function openCourse(){ state.page = 'course'; state.tab = 'lessons'; render(); fire('open-course'); }
+function openLesson(){ state.page = 'lesson'; state.preview = false; render(); fire('open-lesson'); }
+function togglePreview(){ state.preview = !state.preview; render(); fire('toggle-preview'); }
+function toast(m){ const t = document.createElement('div'); t.className = 'toast'; t.textContent = m; document.body.appendChild(t); setTimeout(() => t.remove(), 3500); }
+function sim(label){ toast(U.toastSim.replace('{label}', label)); }
+
+function render(){
+  $$('.sico').forEach(b => b.classList.toggle('on', b.dataset.page === state.page || (state.page !== 'groups' && b.dataset.page === 'courses')));
+  const c = $('#content');
+  c.innerHTML = state.page === 'groups' ? rGroups() : state.page === 'course' ? rCourse() : state.page === 'lesson' ? rLesson() : rCourses();
+  highlight();
+}
+function rCourses(){
+  return `<h1 class="pt">${U.courses}</h1>
+  <div class="btns"><button class="b" onclick="sim('Add')">Add</button><button class="b" onclick="sim('Course Images Gallery')">Course Images Gallery</button></div>
+  <div class="box"><table><thead><tr><th>ID</th><th>Title</th><th>Bussines branch</th><th>Internal course name</th><th>Active</th><th>Number of lessons</th><th>Change date</th></tr></thead>
+  <tbody><tr><td>2163</td><td><a id="courseLink" onclick="openCourse()">${COURSE}</a></td><td>Brazil</td><td>Math Level 5</td><td>Yes</td><td>40</td><td>13:54 03.11.2026</td></tr></tbody></table>
+  <div class="foot"><span>Items per page: 100</span><span>1-1 of 1</span></div></div>`;
+}
+function rCourse(){
+  return `<a class="back" onclick="go('courses')">${I.back} ${U.backCourses}</a>
+  <div class="box" id="courseHead"><div class="chead"><div>
+    <h2>${COURSE}</h2>
+    <div class="pills"><span class="pill g">Active</span><span class="pill y">math</span></div>
+    <div class="fld">Business branch: <b>Brazil</b></div><div class="fld">Language: <b>Portuguese</b></div><div class="fld">Course type: <b>Paid courses</b></div>
+    <div class="fld">Number of lessons: <b>40</b></div><div class="fld">Number of modules: <b>5</b></div><div class="fld">Course group: <b>Math lvl4-5</b></div>
+    <div class="fld">Course set: <b>–</b></div><div class="fld">Excluded from overbooking: <b>No</b></div><div class="fld">Certificate: <a>TR_Math_Adventures_Level5_Noplace</a></div>
+  </div><div class="cimg">🧮</div></div></div>
+  <div class="tabs"><button class="tab ${state.tab === 'lessons' ? 'on' : ''}" id="tabLessons" onclick="tab('lessons')">▤ Lessons</button><button class="tab ${state.tab === 'assignments' ? 'on' : ''}" id="tabAssign" onclick="tab('assignments')">▥ Assignments</button></div>
+  ${state.tab === 'assignments' ? rAssign() : rLessons()}`;
+}
+function rLessons(){
+  return `<div class="box" id="lessonsBox"><table><thead><tr><th>Nº</th><th>Title</th><th>Module</th><th></th></tr></thead><tbody>
+    <tr><td>1</td><td>${LESSON1}</td><td>1</td><td><a onclick="tab('assignments')">${U.viewAssignments}</a></td></tr>
+    <tr class="empty"><td colspan="4">${U.moreLessons}</td></tr></tbody></table></div>`;
+}
+function rows(list, link){
+  return list.map(r => `<tr><td>⠿ ${r[0]}</td><td>${r[1]}</td><td><a ${link && r[0] === 10 ? 'id="firstCard"' : ''} onclick="openLesson()">${r[2]}</a></td><td>INTERACTIVE</td>
+    ${[3,4,5,6].map(k => r[k] ? '<td class="ok">✓</td>' : '<td class="no">✕</td>').join('')}<td>${r[7]}</td><td>10/14/2026</td></tr>`).join('');
+}
+const HEAD = `<thead><tr><th>Number</th><th>ID</th><th>Assignment title</th><th>Assignment type</th><th>Theory</th><th>Project</th><th>Add.</th><th>Final</th><th>Max. score</th><th>Change date</th></tr></thead>`;
+function rAssign(){
+  return `<div class="sel" id="lessonSel"><small>Lesson</small><span>${LESSON1} <span>⌄</span></span></div>
+  <div class="box" id="inClass"><div class="bh">In-class assignments</div><div class="bhb"><button class="b" onclick="sim('Add')">Add</button></div>
+    <table>${HEAD}<tbody>${rows(IN_CLASS, true)}</tbody></table></div>
+  <div class="box" id="homework"><div class="bh">Homework assignments</div><table>${HEAD}<tbody>${rows(HOMEWORK)}</tbody></table></div>
+  <div class="box" id="guides"><div class="bh">Study guides</div><table><thead><tr><th>ID</th><th>Title</th></tr></thead><tbody><tr class="empty"><td colspan="2">No data available</td></tr></tbody></table></div>`;
+}
+function rLesson(){
+  return `<a class="back" onclick="tab('assignments');state.page='course';render()">${I.back} ${U.backAssign}</a>
+  <div class="ed ${state.preview ? 'prev' : ''}">
+    <div class="edtop"><span class="t">Boas-vindas!</span>
+      <div class="edc"><button class="arr" onclick="sim('←')">${I.back}</button><span style="color:var(--muted)">1 of 14</span><button class="arr" onclick="sim('→')">${I.next}</button>
+      <span class="pv" id="previewBtn" onclick="togglePreview()">Preview <i class="sw ${state.preview ? 'on' : ''}"></i></span></div>
+      <button class="b" onclick="sim('Save')">Save</button></div>
+    <div class="edbody"><div class="page">${L.card}</div></div>
+  </div>`;
+}
+function rGroups(){
+  return `<h1 class="pt">Groups</h1><div class="box"><table><thead><tr><th>ID</th><th>Title</th><th>Tutor</th><th>Current course</th><th>Next lesson</th></tr></thead>
+  <tbody><tr><td>90211</td><td><a onclick="sim('${U.groupRow}')">BR_MATH5_ANA</a></td><td>${U.tutorName}</td><td>${COURSE}</td><td>${U.nextLesson}</td></tr></tbody></table></div>
+  <p style="color:var(--muted);font-size:13px">${U.groupsNote}</p>`;
+}
+
+/* ---------- guided walkthrough ---------- */
+// sel = what is highlighted · wait = the action that moves on (otherwise a Next button)
+const STEPS = [
+  { page:'courses', sel:'#courseLink', wait:'open-course' },
+  { page:'course', tab:'lessons', sel:'#courseHead' },
+  { page:'course', tab:'lessons', sel:'#tabAssign', wait:'tab-assignments' },
+  { page:'course', tab:'assignments', sel:'#lessonSel' },
+  { page:'course', tab:'assignments', sel:'#inClass' },
+  { page:'course', tab:'assignments', sel:'#homework' },
+  { page:'course', tab:'assignments', sel:'#guides' },
+  { page:'course', tab:'assignments', sel:'#firstCard', wait:'open-lesson' },
+  { page:'lesson', sel:'#lessonNotes' },
+  { page:'lesson', sel:'#previewBtn', wait:'toggle-preview' },
+  { page:'lesson', sel:'.edbody' }
+];
+let step = -1;
+function startTour(){ step = 0; enter(); }
+function enter(){
+  const s = STEPS[step]; state.page = s.page; if (s.tab) state.tab = s.tab; render();
+  const t = C.steps[step];
+  $('#tour').style.display = 'flex';
+  $('#tSt').textContent = U.stepOf.replace('{n}', step + 1).replace('{total}', STEPS.length);
+  $('#tBar').style.width = Math.round((step + 1) / STEPS.length * 100) + '%';
+  $('#tTt').innerHTML = t.title; $('#tBd').innerHTML = t.body;
+  $('#tNx').style.display = s.wait ? 'none' : 'inline-block';
+  $('#tHint').textContent = s.wait ? U.clickHint : '';
+  $('#tNx').textContent = step === STEPS.length - 1 ? U.finish : U.next;
+}
+function next(){ step++; if (step >= STEPS.length) return finish(); enter(); }
+function fire(a){ if (step < 0 || step >= STEPS.length) return; if (STEPS[step].wait === a) setTimeout(next, 300); }
+function highlight(){
+  $$('.hl').forEach(e => e.classList.remove('hl'));
+  if (step < 0 || step >= STEPS.length) return;
+  const el = $(STEPS[step].sel); if (el){ el.classList.add('hl'); el.scrollIntoView({ behavior:'smooth', block:'center' }); }
+}
+document.addEventListener('click', e => {
+  if (step < 0 || step >= STEPS.length) return;
+  if (e.target.closest('.tour, .hl, #tourBtn')) return;
+  e.preventDefault(); e.stopPropagation(); toast(U.blocked);
+}, true);
+function finish(){
+  step = STEPS.length; $('#tour').style.display = 'none'; highlight();
+  const msg = { type:'em-sim-done', sim:'boSim' };
+  try { parent.postMessage(msg, '*'); } catch(e){} try { if (window.opener) window.opener.postMessage(msg, '*'); } catch(e){}
+  const o = document.createElement('div'); o.className = 'done';
+  o.innerHTML = `<div><div style="font-size:50px">🎉</div><h2>${C.done.title}</h2><p>${C.done.body}</p><p style="background:#FFF4D6;border-radius:10px;padding:10px 12px">${C.done.next}</p>
+    <div class="row"><button class="b ghost" id="dStay">${C.done.stay}</button><button class="b" id="dAgain">${C.done.again}</button></div></div>`;
+  document.body.appendChild(o);
+  $('#dStay').onclick = () => o.remove();
+  $('#dAgain').onclick = () => { o.remove(); startTour(); };
+}
+$('#tNx').onclick = next;
+$('#tourBtn').onclick = startTour;
+$$('.sico').forEach(b => b.onclick = () => go(b.dataset.page));
+render(); startTour();
+</script>
+</body>
+</html>

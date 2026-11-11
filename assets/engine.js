@@ -166,8 +166,11 @@ function renderHome(){
 
 /* ----- module check call-to-action (with the extra locks of Module 5) ----- */
 function checkLocks(m){
-  if (m.id !== LEVEL_MODULE || P.dev) return [];
+  if (P.dev) return [];
   const l = [];
+  const miss = (m.needs || []).filter(f => !flag(f));
+  if (miss.length) l.push(tx('lockSims', { list: miss.map(f => (C.sims[f] || {}).title || f).join(' · ') }));
+  if (m.id !== LEVEL_MODULE) return l;
   if (levelsSeen() < C.levels.length) l.push(tx('lockLevels', { done: levelsSeen(), total: C.levels.length }));
   if (!flag('finalSurvey')) l.push(UI.lockSurvey);
   return l;
@@ -235,10 +238,250 @@ document.addEventListener('click', e => {
 }, SIG);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { const ov = $('.zoomov'); if (ov) ov.remove(); } }, SIG);
 
+/* =========================================================
+   MODULE 2 GAMES (Levels 1–4): data in COURSE.games
+   ========================================================= */
+const gtx = (s, o) => String(s).replace(/\{(\w+)\}/g, (m, k) => o && k in o ? o[k] : m);
+function initGame(box){
+  const G = (C.games || {})[box.dataset.game]; if (!G) return;
+  (({ ask: askGame, habits: habitGame, words: wordsGame, deck: deckGame, roles: roleGame })[box.dataset.game] || (G.stops ? timelineGame : explainGame))(box, G);
+}
+
+/* ---- 1. "What do you ask?" — 5 situations, 3 options each ---- */
+function askBoard(b){
+  if (b.type === 'count') return `<div class="gb-count" style="--cols:${b.cols}">${Array.from({ length:b.n }, (_, i) => `<button class="gi" type="button" data-n="${i}">${b.emoji}<i></i></button>`).join('')}</div><div class="gb-note" data-note>${gtx(b.label, { k:0 })}</div>`;
+  if (b.type === 'empty') return `<button class="gb-box" type="button" data-box><span>${b.box}</span></button><div class="gb-note" data-note>${b.hint}</div>`;
+  if (b.type === 'compare') return `<div class="gb-cmp"><button class="pile" type="button" data-p="a">${b.emoji.repeat(b.a)}<b>${b.a}</b></button><span class="croc" data-croc>☐</span><button class="pile" type="button" data-p="b">${b.emoji.repeat(b.b)}<b>${b.b}</b></button></div><div class="gb-note" data-note>${b.hint}</div>`;
+  if (b.type === 'blocks'){
+    const t = Math.floor(b.a / 10) + Math.floor(b.b / 10), o = b.a % 10 + b.b % 10;
+    return `<div class="gb-blocks" data-t="${t}" data-o="${o}"></div><button class="btn-g gb-btn" type="button" data-group>${b.btn}</button><div class="gb-note" data-note></div>`;
+  }
+  if (b.type === 'pizza') return `<div class="gb-pizzas">${b.parts.map((n, k) => `<div class="pz"><svg viewBox="-52 -52 104 104">${Array.from({ length:n }, (_, i) => {
+      const a0 = i / n * 2 * Math.PI - Math.PI / 2, a1 = (i + 1) / n * 2 * Math.PI - Math.PI / 2, r = 48;
+      return `<path class="sl" data-k="${k}" d="M0 0 L${(r * Math.cos(a0)).toFixed(2)} ${(r * Math.sin(a0)).toFixed(2)} A${r} ${r} 0 0 1 ${(r * Math.cos(a1)).toFixed(2)} ${(r * Math.sin(a1)).toFixed(2)} Z"/>`; }).join('')}</svg><b>1/${n}</b></div>`).join('')}</div><div class="gb-note" data-note>${b.hint}</div>`;
+  if (b.type === 'segments') return `<svg class="gb-seg" viewBox="0 0 340 90">${b.pts.map((p, i) => `<g class="sp" data-p="${i}" transform="translate(${40 + i * 86} 50)"><circle r="16"/><text y="-24">${p}</text></g>`).join('')}<g class="segs"></g></svg><div class="gb-note" data-note>${b.hint}</div>`;
+  if (b.type === 'bars') return `<div class="gb-bars">${b.items.map((it, i) => `<button type="button" class="gbar" data-b="${i}"><span class="gbl">${it[0]}</span><span class="gbt"><i style="width:0"></i></span><b>${(b.hidden || []).includes(i) ? '?' : ''}</b></button>`).join('')}</div><div class="gb-note" data-note>${b.hint}</div>`;
+  if (b.type === 'grid') return `<div class="gb-grid">${Array.from({ length:b.to - b.from + 1 }, (_, i) => `<button type="button" class="gn" data-v="${b.from + i}">${b.from + i}</button>`).join('')}</div><div class="gb-note" data-note>${b.hint}</div>`;
+  if (b.type === 'numline'){
+    const n = b.max - b.min, X = v => 20 + (v - b.min) / n * 300;
+    return `<svg class="gb-nl" viewBox="0 0 340 80"><path d="M10 40 h320" class="ax"/>${Array.from({ length:n + 1 }, (_, i) => { const v = b.min + i; return `<path d="M${X(v)} 33 v14" class="tk"/>${v % 2 === 0 ? `<text x="${X(v)}" y="68">${v}</text>` : ''}`; }).join('')}
+      <path class="jump" d=""/><circle class="mk" cx="${X(b.start)}" cy="40" r="9"/></svg>
+      <div class="gb-jbtns">${b.jumps.map((j, k) => `<button class="btn-g gb-btn" type="button" data-j="${k}">${j[0]}</button>`).join('')}</div><div class="gb-note" data-note>${gtx(b.label, { v:b.start })}</div>`;
+  }
+  return '';
+}
+function wireBoard(el, b){
+  const note = $('[data-note]', el);
+  if (b.type === 'count'){ let k = 0; $$('.gi', el).forEach(x => x.onclick = () => { if (x.classList.contains('on')) return; k++; x.classList.add('on'); $('i', x).textContent = k; note.textContent = gtx(b.label, { k }); }); }
+  if (b.type === 'empty'){ const bx = $('[data-box]', el); bx.onclick = () => { bx.classList.add('open'); note.innerHTML = `<b>${b.empty}</b>`; }; }
+  if (b.type === 'compare') $$('.pile', el).forEach(p => p.onclick = () => { $$('.pile', el).forEach(x => x.classList.toggle('on', x === p));
+    const big = b.a >= b.b ? 'a' : 'b'; $('[data-croc]', el).textContent = p.dataset.p === big ? (big === 'a' ? '>' : '<') : '?';
+    note.innerHTML = p.dataset.p === big ? `🐊 <b>${b.a} ${b.a > b.b ? '>' : '<'} ${b.b}</b>` : b.hint; });
+  if (b.type === 'blocks'){
+    const bl = $('.gb-blocks', el); let t = +bl.dataset.t, o = +bl.dataset.o;
+    const draw = () => { bl.innerHTML = `<div class="tens">${'<i class="ten"></i>'.repeat(t)}</div><div class="ones">${'<i class="one"></i>'.repeat(o)}</div>`; note.innerHTML = `<b>${t}</b> ${b.tens} · <b>${o}</b> ${b.ones} = <b>${t * 10 + o}</b>`; };
+    draw(); $('[data-group]', el).onclick = e => { if (o >= 10){ o -= 10; t += 1; draw(); e.target.disabled = true; } };
+  }
+  if (b.type === 'segments'){
+    const seen = new Set(); let first = null; const pos = i => 40 + i * 86;
+    $$('.sp', el).forEach(g => g.onclick = () => {
+      const i = +g.dataset.p;
+      if (first === null){ first = i; g.classList.add('on'); return; }
+      $$('.sp', el).forEach(x => x.classList.remove('on'));
+      if (first !== i){ const a = Math.min(first, i), c = Math.max(first, i), k = a + '-' + c;
+        if (!seen.has(k)){ seen.add(k); const y = 50 - 6 - seen.size * 0; $('.segs', el).insertAdjacentHTML('beforeend', `<path d="M${pos(a)} 50 Q${(pos(a) + pos(c)) / 2} ${50 - (c - a) * 14} ${pos(c)} 50" class="sg"/>`); }
+        note.innerHTML = gtx(b.label, { k:`<b>${seen.size}</b>` }) + ` · [${b.pts[first]}${b.pts[i]}] = [${b.pts[i]}${b.pts[first]}]`; }
+      first = null;
+    });
+  }
+  if (b.type === 'bars') $$('.gbar', el).forEach(x => x.onclick = () => { const it = b.items[+x.dataset.b];
+    $('i', x).style.width = (it[1] / b.max * 100) + '%'; $('b', x).textContent = it[2]; x.classList.add('on'); });
+  if (b.type === 'grid'){ let k = 0; $$('.gn', el).forEach(x => x.onclick = () => { if (x.classList.contains('on') || x.classList.contains('no')) return;
+    const ok = b.good.includes(+x.dataset.v); x.classList.add(ok ? 'on' : 'no'); if (ok) k++; note.textContent = gtx(b.label, { k }); }); }
+  if (b.type === 'numline'){ const n = b.max - b.min, X = v => 20 + (v - b.min) / n * 300; let v = b.start;
+    $$('[data-j]', el).forEach(btn => btn.onclick = () => { const d = b.jumps[+btn.dataset.j][1], to = Math.max(b.min, Math.min(b.max, v + d));
+      $('.jump', el).setAttribute('d', `M${X(v)} 40 Q${(X(v) + X(to)) / 2} ${40 - Math.abs(to - v) * 3} ${X(to)} 40`); $('.mk', el).setAttribute('cx', X(to)); v = to;
+      note.innerHTML = `<b>${gtx(b.label, { v })}</b>`; btn.disabled = true; }); }
+  if (b.type === 'pizza') $$('.sl', el).forEach(s => s.onclick = () => { $$(`.sl[data-k="${s.dataset.k}"]`, el).forEach(x => x.classList.remove('on')); s.classList.add('on'); });
+}
+function askGame(box, G){
+  const U = G.ui, R = G.rounds; let i = 0, score = 0;
+  const draw = () => {
+    if (i >= R.length){
+      box.innerHTML = `<div class="gm-end"><div class="gm-big">🏆</div><p>${gtx(U.done, { score, total:R.length })}</p><button class="btn-y" type="button" data-again>${U.again}</button></div>`;
+      $('[data-again]', box).onclick = () => { i = 0; score = 0; draw(); }; return;
+    }
+    const r = R[i], opts = shuffle(r.options.map((o, k) => ({ t:o[0], ok:o[1], fb:o[2], k })));
+    box.innerHTML = `<div class="gm-top"><span>${gtx(U.round, { n:i + 1, total:R.length })}</span><span class="gm-dots">${R.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}"></i>`).join('')}</span></div>
+      <div class="gm-ask"><div class="gm-left"><span class="gm-tag">${r.tag}</span><p class="gm-task">${r.task}</p><div class="gm-board">${askBoard(r.board)}</div><small class="gm-touch">${U.touch}</small>
+        <div class="gm-said"><span>🧒 ${U.student}</span>${r.said}</div></div>
+      <div class="gm-right"><h4>${U.ask}</h4><div class="gm-opts">${opts.map(o => `<button class="gm-opt" type="button" data-k="${o.k}">${o.t}</button>`).join('')}</div><div class="gm-fb"></div></div></div>`;
+    wireBoard($('.gm-board', box), r.board);
+    $$('.gm-opt', box).forEach(btn => btn.onclick = () => {
+      if (box.dataset.busy === '1') return; box.dataset.busy = '1';
+      const o = opts.find(x => String(x.k) === btn.dataset.k); if (o.ok) score++;
+      $$('.gm-opt', box).forEach(x => { const oo = opts.find(y => String(y.k) === x.dataset.k); x.classList.add(oo.ok ? 'right' : (x === btn ? 'wrong' : 'dim')); x.disabled = true; });
+      $('.gm-fb', box).innerHTML = `<div class="gm-verdict ${o.ok ? 'ok' : 'no'}">${o.ok ? U.right : U.wrong}</div><p><b>${U.review}:</b> ${o.fb}</p>
+        <div class="gm-rev"><p><b>${U.mistake}:</b> ${r.mistake}</p><p><b>${U.help}:</b> ${r.help}</p></div>
+        <button class="btn-y" type="button" data-next>${i === R.length - 1 ? U.finish : U.next}</button>`;
+      $('[data-next]', box).onclick = () => { box.dataset.busy = '0'; i++; draw(); box.scrollIntoView({ behavior:'smooth', block:'start' }); };
+    });
+  };
+  box.dataset.busy = '0'; draw();
+}
+
+/* ---- 2. Habit or not? — sort what a tutor does ---- */
+function habitGame(box, G){
+  const U = G.ui, cards = G.cards; let i = 0, score = 0; const got = new Set();
+  const badges = () => `<div class="hb-badges">${G.habits.map((h, k) => `<span class="${got.has(k) ? 'on' : ''}">${h[0]} ${h[1]}</span>`).join('')}</div>`;
+  const draw = () => {
+    if (i >= cards.length){
+      box.innerHTML = `<div class="gm-end"><div class="gm-big">⭐</div><p>${gtx(U.done, { score, total:cards.length })}</p>${badges()}<button class="btn-y" type="button" data-again>${U.again}</button></div>`;
+      $$('.hb-badges span', box).forEach(x => x.classList.add('on'));
+      $('[data-again]', box).onclick = () => { i = 0; score = 0; got.clear(); draw(); }; return;
+    }
+    const c = cards[i];
+    box.innerHTML = `<div class="gm-top"><span>${gtx(U.progress, { n:i + 1, total:cards.length })}</span><span class="gm-dots">${cards.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}"></i>`).join('')}</span></div>
+      <div class="hb-card"><span class="hb-who">👩‍🏫</span><p>${c[0]}</p></div>
+      <div class="hb-btns"><button class="hb-b good" type="button" data-v="1">${U.good}</button><button class="hb-b bad" type="button" data-v="0">${U.bad}</button></div>
+      <div class="gm-fb"></div>${badges()}`;
+    $$('.hb-b', box).forEach(b => b.onclick = () => {
+      if ($('.gm-fb', box).innerHTML) return;
+      const ok = (b.dataset.v === '1') === c[1]; if (ok) score++; got.add(c[2]);
+      $$('.hb-b', box).forEach(x => { x.disabled = true; x.classList.add((x.dataset.v === '1') === c[1] ? 'right' : 'dim'); });
+      const h = G.habits[c[2]];
+      $('.gm-fb', box).innerHTML = `<div class="gm-verdict ${ok ? 'ok' : 'no'}">${ok ? U.right : U.wrong}</div><p><span class="hb-tag">${U.habit}: ${h[0]} ${h[1]}</span> ${c[3]}</p><button class="btn-y" type="button" data-next>${U.next}</button>`;
+      $('.hb-badges', box).outerHTML = badges();
+      $('[data-next]', box).onclick = () => { i++; draw(); };
+    });
+  };
+  draw();
+}
+
+/* ---- 3. Math words inside three tasks: touch a highlighted part to see the word ---- */
+function wordsGame(box, G){
+  const U = G.ui; let t = 0; const seen = G.tasks.map(() => new Set());
+  const hs = (txt, key) => key ? `<button class="hs" type="button" data-w="${key}">${esc(txt)}</button>` : `<span>${esc(txt)}</span>`;
+  const cell = c => Array.isArray(c) ? hs(c[0], c[1]) : (String(c).startsWith('~') ? `<span class="strike">${esc(c.slice(1))}</span>` : `<span>${esc(c)}</span>`);
+  const draw = () => {
+    const T = G.tasks[t], total = Object.keys(T.words).length;
+    let visual = '';
+    if (T.type === 'column') visual = `<div class="wcol">${T.rows.map((r, k) => `<div class="wrow ${k === T.rows.length - 1 ? 'res' : ''} ${k === 0 ? 'small' : ''}">${r.map(cell).join('')}</div>`).join('')}</div>`;
+    if (T.type === 'svg') visual = `<div class="wsvg">${T.svg}</div><div class="wfrac wparts">${T.parts.map(p => hs(p[0], p[1])).join('')}</div>`;
+    if (T.type === 'pizza') visual = `<div class="wpz"><svg viewBox="-52 -52 104 104">${Array.from({ length:8 }, (_, i) => { const a0 = i / 8 * 2 * Math.PI - Math.PI / 2, a1 = (i + 1) / 8 * 2 * Math.PI - Math.PI / 2, r = 48;
+        return `<path class="sl ${i < 3 ? 'on' : ''}" d="M0 0 L${(r * Math.cos(a0)).toFixed(2)} ${(r * Math.sin(a0)).toFixed(2)} A${r} ${r} 0 0 1 ${(r * Math.cos(a1)).toFixed(2)} ${(r * Math.sin(a1)).toFixed(2)} Z"/>`; }).join('')}</svg>
+        <div class="wfrac">${T.parts.map(p => hs(p[0], p[1])).join('')}</div></div>`;
+    box.innerHTML = `<div class="wtabs">${G.tasks.map((x, k) => `<button type="button" class="${k === t ? 'on' : ''} ${seen[k].size === Object.keys(x.words).length ? 'done' : ''}" data-t="${k}">${x.title}</button>`).join('')}</div>
+      <div class="wbody"><div class="wleft"><p class="wstory">${T.story}</p>${visual}<div class="wextra">${T.extra.map(e => hs(e[0], e[1])).join('')}</div><small class="gm-touch">${U.tap}</small></div>
+      <div class="wright"><div class="wcount">${gtx(U.found, { k:seen[t].size, total })}</div><div class="wcard"><span class="wq">👆</span></div></div></div>`;
+    $$('[data-t]', box).forEach(b => b.onclick = () => { t = +b.dataset.t; draw(); });
+    $$('.hs', box).forEach(b => { if (seen[t].has(b.dataset.w)) b.classList.add('seen'); b.onclick = () => {
+      const w = T.words[b.dataset.w]; seen[t].add(b.dataset.w);
+      $$(`.hs[data-w="${b.dataset.w}"]`, box).forEach(x => x.classList.add('seen'));
+      $$('.hs', box).forEach(x => x.classList.toggle('cur', x.dataset.w === b.dataset.w));
+      $('.wcard', box).innerHTML = `<h4>${w[0]}</h4><p>${w[1]}</p><div class="wsay"><b>${U.say}:</b> ${w[2]}</div>`;
+      $('.wcount', box).textContent = gtx(U.found, { k:seen[t].size, total }) + (seen[t].size === total ? ' — ' + U.all : '');
+      $(`[data-t="${t}"]`, box).classList.toggle('done', seen[t].size === total);
+    }; });
+  };
+  draw();
+}
+
+/* ---- 4. How to explain a math idea — one big card, click through ---- */
+function explainGame(box, G){
+  const U = G.ui, K = G.cards; let i = 0;
+  box.classList.add('xp');
+  const draw = () => {
+    const c = K[i];
+    const pic = c.img ? `<img src="${c.img}" alt="">` : (c.svg || `<div class="xp-art">${esc(c.art || '')}</div>`);
+    box.innerHTML = `<div class="xp-card"><div class="xp-pic">${pic}</div>
+      <div class="xp-txt"><span class="gm-tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p>
+        <div class="wsay"><b>${U.try}:</b> ${c.say}</div></div></div>
+      <div class="xp-nav"><button class="btn-g" type="button" data-prev ${i === 0 ? 'disabled' : ''}>${U.prev}</button>
+        <span class="gm-dots">${K.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}" data-go-card="${k}"></i>`).join('')}</span>
+        <span class="xp-n">${gtx(U.of, { n:i + 1, total:K.length })}</span>
+        <button class="btn-y" type="button" data-nextc>${i === K.length - 1 ? U.again : U.next}</button></div>`;
+    $('[data-prev]', box).onclick = () => { if (i > 0){ i--; draw(); } };
+    $('[data-nextc]', box).onclick = () => { i = i === K.length - 1 ? 0 : i + 1; draw(); };
+    $$('[data-go-card]', box).forEach(d => d.onclick = () => { i = +d.dataset.goCard; draw(); });
+  };
+  draw();
+}
+
+/* ---- 5. Interactive timeline (Classroom): stops appear one after another ---- */
+function timelineGame(box, G){
+  const U = G.ui, S = G.stops; let open = -1, reached = 0;
+  box.classList.add('tl');
+  const draw = () => {
+    const c = open >= 0 ? S[open] : null;
+    const pic = c ? (c.img ? `<img src="${c.img}" alt="">` : c.svg) : '';
+    box.innerHTML = `<div class="tl-line" style="--n:${S.length}"><i class="tl-bar" style="--p:${S.length > 1 ? reached / (S.length - 1) : 0}"></i>
+        ${S.map((s, k) => `<button type="button" class="tl-stop ${k <= reached ? 'show' : ''} ${k === open ? 'on' : ''} ${k < reached || (k === reached && open === k) ? 'seen' : ''}" data-s="${k}" ${k > reached ? 'disabled' : ''}>
+          <span class="tl-dot">${s.icon}</span><span class="tl-lab">${s.title}</span></button>`).join('')}</div>
+      ${c ? `<div class="tl-pop"><div class="tl-pic">${pic}</div><div class="tl-txt"><h4>${c.icon} ${c.title}</h4><ul>${c.points.map(p => `<li>${p}</li>`).join('')}</ul>
+          ${open < S.length - 1 ? `<button class="btn-y" type="button" data-tnext>${U.next}</button>` : `<p class="tl-done">${U.done}</p><button class="btn-g" type="button" data-tagain>${U.again}</button>`}</div></div>`
+        : `<p class="tl-hint">${U.start}</p>`}`;
+    $$('.tl-stop', box).forEach(b => b.onclick = () => { open = +b.dataset.s; draw(); });
+    const nx = $('[data-tnext]', box); if (nx) nx.onclick = () => { open++; reached = Math.max(reached, open); draw(); };
+    const ag = $('[data-tagain]', box); if (ag) ag.onclick = () => { open = -1; reached = 0; draw(); };
+  };
+  draw();
+}
+
+/* ---- 6. Card deck: click the top card and it goes to the back ---- */
+function deckGame(box, G){
+  const U = G.ui, K = G.cards; let i = 0, busy = false;
+  box.classList.add('dk');
+  const face = c => `<div class="dk-pic">${c.img ? `<img src="${c.img}" alt="">` : c.svg}</div>
+    <div class="dk-txt"><span class="dk-kind ${c.kind}">${U[c.kind] || ''}</span><h3>${c.title}</h3><p>${c.text}</p></div>`;
+  const draw = () => {
+    box.innerHTML = `<div class="dk-stack">${[2, 1].map(d => K[i + d] ? `<div class="dk-card dk-back d${d}" aria-hidden="true"></div>` : '').join('')}
+        <button type="button" class="dk-card dk-top">${face(K[i])}</button></div>
+      <div class="xp-nav"><span class="gm-dots">${K.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}" data-go-card="${k}"></i>`).join('')}</span>
+        <span class="xp-n">${gtx(U.of, { n:i + 1, total:K.length })}</span></div>
+      <p class="dk-hint">${i === K.length - 1 ? `<button class="btn-g" type="button" data-again>${U.again}</button>` : U.tap}</p>`;
+    $('.dk-top', box).onclick = () => { if (busy || i === K.length - 1) return; busy = true; $('.dk-top', box).classList.add('fly');
+      setTimeout(() => { busy = false; i++; draw(); }, 380); };
+    const ag = $('[data-again]', box); if (ag) ag.onclick = () => { i = 0; draw(); };
+    $$('[data-go-card]', box).forEach(d => d.onclick = () => { i = +d.dataset.goCard; draw(); });
+  };
+  draw();
+}
+
+/* ---- 7. Which role? — one case at a time ---- */
+function roleGame(box, G){
+  const U = G.ui, C2 = G.cases; let i = 0, score = 0;
+  const draw = () => {
+    if (i >= C2.length){
+      box.innerHTML = `<div class="gm-end"><div class="gm-big">🧭</div><p>${gtx(U.done, { score, total:C2.length })}</p><button class="btn-y" type="button" data-again>${U.again}</button></div>`;
+      $('[data-again]', box).onclick = () => { i = 0; score = 0; draw(); }; return;
+    }
+    const c = C2[i];
+    box.innerHTML = `<div class="gm-top"><span>${gtx(U.case, { n:i + 1, total:C2.length })}</span><span class="gm-dots">${C2.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}"></i>`).join('')}</span></div>
+      <div class="gm-ask"><div class="gm-left"><div class="rl-pic">${c.svg || ''}</div><p class="gm-task">${c.text}</p></div>
+      <div class="gm-right"><h4>${U.ask}</h4><div class="rl-roles">${G.roles.map((r, k) => `<button type="button" class="gm-opt rl" data-k="${k}"><span>${r[0]}</span> ${r[1]}</button>`).join('')}</div><div class="gm-fb"></div></div></div>`;
+    $$('.rl', box).forEach(b => b.onclick = () => {
+      if ($('.gm-fb', box).innerHTML) return;
+      const ok = +b.dataset.k === c.ok; if (ok) score++;
+      $$('.rl', box).forEach(x => { x.disabled = true; x.classList.add(+x.dataset.k === c.ok ? 'right' : (x === b ? 'wrong' : 'dim')); });
+      $('.gm-fb', box).innerHTML = `<div class="gm-verdict ${ok ? 'ok' : 'no'}">${ok ? U.right : U.wrong}</div><p>${G.roles[c.ok][0]} <b>${G.roles[c.ok][1]}</b> — ${c.fb}</p>
+        <button class="btn-y" type="button" data-next>${i === C2.length - 1 ? U.finish : U.next}</button>`;
+      $('[data-next]', box).onclick = () => { i++; draw(); };
+    });
+  };
+  draw();
+}
+
 function initWidgets(){
   $$('.cklist .ck').forEach(b => b.onclick = () => b.classList.toggle('on'));
   $$('[data-fm]').forEach(initFollowDemo);
   $$('[data-video]').forEach(renderVideo);
+  $$('[data-sim]').forEach(renderSim);
+  $$('[data-game]').forEach(initGame);
+  // Classroom "3 minutes remaining" countdown (demo: loops from 3:00)
+  clearInterval(window.__cdTimer);
+  const cds = $$('.ctoast .cd');
+  if (cds.length){ let t = 180; const tick = () => { t = t <= 0 ? 180 : t - 1; cds.forEach(el => el.textContent = Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0')); }; tick(); window.__cdTimer = setInterval(tick, 1000); }
   $$('.flip, .rv').forEach(b => b.onclick = () => b.classList.toggle('on'));
   $$('.acc .ah').forEach(b => b.onclick = () => b.parentElement.classList.toggle('open'));
   $$('.tabs').forEach(tb => $$('.tb', tb).forEach(b => b.onclick = () => {
@@ -257,11 +500,39 @@ function embedUrl(u){
   return u;
 }
 function renderVideo(box){
-  const src = embedUrl((C.videos || {})[box.dataset.video]);
+  const key = box.dataset.video, raw = (C.videos || {})[key], src = embedUrl(raw), note = (C.videoNotes || {})[key];
+  if (src && /\.mp4($|\?)|^data:video/.test(src)){ box.innerHTML = `<div class="vframe"><video src="${esc(src)}" controls preload="none"></video></div>`; return; }
   box.innerHTML = src
     ? `<div class="vframe"><iframe src="${esc(src)}" title="${esc(UI.videoLabel)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
-    : `<div class="vframe vsoon"><span>🎬</span><b>${UI.videoLabel}</b><p>${UI.videoSoon}</p></div>`;
+    : note
+      ? `<div class="vneed"><span class="ii">🎬</span><div><b>${UI.videoNeeded}</b><h4>${note.title}</h4><p>${note.text}</p><small>${UI.videoKey}: ${esc(key)}</small></div></div>`
+      : `<div class="vframe vsoon"><span>🎬</span><b>${UI.videoLabel}</b><p>${UI.videoSoon}</p></div>`;
 }
+
+/* ---------- Simulations (BO and Classroom): open inside the page, report completion with postMessage ---------- */
+const simSrc = f => (window.SIM_SRC && window.SIM_SRC[f]) ? window.SIM_SRC[f](C.lang) : C.sims[f].src + '?lang=' + C.lang;
+function renderSim(box){
+  const f = box.dataset.sim, S = C.sims[f]; if (!S) return;
+  box.innerHTML = `<div class="simbox"><span class="se">${S.e}</span><div class="grow">
+      <span class="simbadge">${S.badge}</span><h3>${S.title}</h3><p>${S.text}</p>
+      <div class="simstate">${flag(f) ? UI.simDone : UI.simTodo}</div>
+      <div class="simbtns"><button class="btn-y" type="button" data-simopen>${UI.simOpen}</button><a class="btn-g" href="${simSrc(f)}" target="_blank" rel="noopener">${UI.simNewTab}</a></div></div></div>
+    <div class="simframe"></div>`;
+  const fr = $('.simframe', box), btn = $('[data-simopen]', box);
+  btn.onclick = () => {
+    if (fr.innerHTML){ fr.innerHTML = ''; btn.textContent = UI.simOpen; return; }
+    fr.innerHTML = `<iframe src="${simSrc(f)}" title="${esc(S.title)}" allow="fullscreen"></iframe>`;
+    btn.textContent = UI.simClose; fr.scrollIntoView({ behavior:'smooth', block:'start' });
+  };
+}
+addEventListener('message', e => {
+  const d = e.data || {};
+  if (d.type !== 'em-sim-done' || !C.sims || !C.sims[d.sim]) return;
+  if (!flag(d.sim)) confetti(80);
+  setFlag(d.sim, true);
+  $$(`[data-sim="${d.sim}"] .simstate`).forEach(x => x.innerHTML = UI.simDone);
+  const m = MODS.find(x => (x.needs || []).includes(d.sim)); if (m) refreshCTA(m);
+}, SIG);
 
 /* ---------- Follow Mode demo (Lead the group) ---------- */
 function initFollowDemo(box){
