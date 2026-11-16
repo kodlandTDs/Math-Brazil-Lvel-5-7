@@ -183,7 +183,7 @@ window.COURSE = {
   "simNewTab": "↗ Abrir em nova aba",
   "simDone": "✅ Concluída",
   "simTodo": "⏳ Ainda não concluída",
-  "videoNeeded": "Vídeo a gravar",
+  "videoNeeded": "Vídeo para gravar",
   "videoKey": "Espaço do vídeo"
  },
  "survey": {
@@ -281,7 +281,7 @@ window.COURSE = {
     {
      "id": "s15",
      "title": "💻 Classroom e Follow Mode",
-     "html": "<p>Todas as aulas acontecem no <strong>Classroom</strong>. Você abre os cartões da aula em <strong>Assignments</strong> e guia o aluno por eles. Acompanhe uma aula do começo ao fim: clique em uma parada da linha para ver o que fazer, e a próxima parada aparece.</p>\n<div class=\"game\" data-game=\"classroom\"></div>\n<div class=\"ctimer\"><div class=\"ctoast t15\"><span class=\"tt\">🔔 Aviso</span><b>Faltam 15 minutos</b><p>O horário da aula acabou: comece a encerrar com calma.</p></div><div class=\"ctoast t3\"><span class=\"tt\">⏳ Aviso</span><b>Faltam 3 minutos</b><span class=\"cd\">3:00</span><p>Termine a reflexão e se despeça.</p></div><div class=\"ctoast t0\"><span class=\"tt\">⏰ Aviso</span><b>O tempo acabou</b><p>Em breve o Classroom vai fechar aqui automaticamente.</p></div></div>\n<p>Agora percorra os primeiros cartões do Nível 5, Aula 1 em uma cópia do Classroom, com uma aluna que segue você:</p>\n<div class=\"simwrap\" data-sim=\"classroomSim\"></div>"
+     "html": "<p>Todas as aulas acontecem no <strong>Classroom</strong>. Você abre os cartões da aula em <strong>Assignments</strong> e guia o aluno por eles. Acompanhe uma aula do começo ao fim: clique em uma etapa da linha para ver o que fazer, e a próxima etapa aparece.</p>\n<div class=\"game\" data-game=\"classroom\"></div>\n<div class=\"ctimer\"><div class=\"ctoast t15\"><span class=\"tt\">🔔 Aviso</span><b>Faltam 15 minutos</b><p>O horário da aula acabou: comece a encerrar com calma.</p></div><div class=\"ctoast t3\"><span class=\"tt\">⏳ Aviso</span><b>Faltam 3 minutos</b><span class=\"cd\">3:00</span><p>Termine a reflexão e se despeça.</p></div><div class=\"ctoast t0\"><span class=\"tt\">⏰ Aviso</span><b>O tempo acabou</b><p>Em breve o Classroom vai fechar aqui automaticamente.</p></div></div>\n<p>Agora passe pelos primeiros cartões do Nível 5, Aula 1 em uma cópia do Classroom, com uma aluna acompanhando você:</p>\n<div class=\"simwrap\" data-sim=\"classroomSim\"></div>"
     },
     {
      "id": "s16",
@@ -307,7 +307,7 @@ window.COURSE = {
     {
      "id": "s21",
      "title": "🌱 Você não precisa ser matemático",
-     "html": "<p>A matemática é nova para muitos tutores da Kodland, e muitos nunca a ensinaram. Tudo bem. Os Níveis 5–7 são matemática escolar para alunos de 9 a 13 anos, e cada aula vem pronta: os cartões, as Teacher notes e um gabarito rápido no Slide para o tutor. O que faz um bom tutor de matemática é conhecer bem <strong>a aula de hoje</strong>, ter <strong>curiosidade sobre como o aluno pensa</strong> e ter <strong>paciência</strong> — entender matemática leva tempo e repetição.</p>\n<p>E uma regra vale para todas as idades. Quando o aluno erra, tem dificuldade ou quer desistir, nunca usamos linguagem corretiva ou crítica. Usamos uma frase:</p>\n<div class=\"callout\">\n<p><em>\"Sem problema! Algumas tarefas podem ser difíceis, mas com a prática elas ficam mais fáceis.\"</em></p>\n</div>\n<div class=\"figone\"><figure class=\"cfig\"><img alt=\"Nível 5, Aula 1: a planta do pátio escolar da história\" loading=\"lazy\" src=\"assets/img/l5/plan.jpg\"/><figcaption>Nível 5, Aula 1: a planta do pátio escolar da história</figcaption></figure></div>"
+     "html": "<p>A matemática é novidade para muitos tutores da Kodland, e muitos nunca a ensinaram. Tudo bem. Os Níveis 5–7 são matemática escolar para alunos de 9 a 13 anos, e cada aula vem pronta: os cartões, as Teacher notes e um gabarito rápido no Slide para o tutor. O que faz um bom tutor de matemática é conhecer bem <strong>a aula de hoje</strong>, ter <strong>curiosidade sobre como o aluno pensa</strong> e ter <strong>paciência</strong> — entender matemática leva tempo e repetição.</p>\n<p>E uma regra vale para todas as idades. Quando o aluno erra, tem dificuldade ou quer desistir, nunca usamos linguagem corretiva ou crítica. Usamos uma frase:</p>\n<div class=\"callout\">\n<p><em>\"Sem problema! Algumas tarefas podem ser difíceis, mas com a prática elas ficam mais fáceis.\"</em></p>\n</div>\n<div class=\"figone\"><figure class=\"cfig\"><img alt=\"Nível 5, Aula 1: a planta do pátio escolar da história\" loading=\"lazy\" src=\"assets/img/l5/plan.jpg\"/><figcaption>Nível 5, Aula 1: a planta do pátio escolar da história</figcaption></figure></div>"
     },
     {
      "id": "s22",
@@ -337,17 +337,17 @@ window.COURSE = {
     {
      "id": "s27",
      "title": "📚 Palavras de matemática para usar em aula",
-     "html": "<p>Use os mesmos termos que o aluno ouve na escola, para que a aula combine com o que ele aprende em sala. Aqui eles aparecem em três tarefas típicas dos Níveis 5–7 — <strong>toque em cada parte destacada</strong> para ver o termo e o que ele significa.</p>\n<div class=\"game\" data-game=\"words\"></div>"
+     "html": "<p>Use os mesmos termos que o aluno ouve na escola, para que a aula esteja alinhada ao que ele aprende em sala. Aqui eles aparecem em três tarefas típicas dos Níveis 5–7 — <strong>toque em cada parte destacada</strong> para ver o termo e o que ele significa.</p>\n<div class=\"game\" data-game=\"words\"></div>"
     },
     {
      "id": "s28",
      "title": "🚦 Antes da sua primeira aula — o seu roteiro",
-     "html": "<p>Uma aula bem preparada é uma aula divertida — para você e para o seu aluno. Siga este roteiro e lembre-se das três coisas <strong>obrigatórias antes de cada aula</strong>:</p>\n<div class=\"game\" data-game=\"roadmap\"></div>\n<p>A sua primeira parada é o <strong>cartão do grupo</strong> no BO. Ele mostra qual curso dar e quem é o seu aluno:</p>\n<div class=\"game\" data-game=\"groupcard\"></div>"
+     "html": "<p>Uma aula bem preparada é uma aula divertida — para você e para o seu aluno. Siga este roteiro e lembre-se das três coisas <strong>obrigatórias antes de cada aula</strong>:</p>\n<div class=\"game\" data-game=\"roadmap\"></div>\n<p>A sua primeira etapa é o <strong>cartão do grupo</strong> no BO. Ele mostra qual curso dar e quem é o seu aluno:</p>\n<div class=\"game\" data-game=\"groupcard\"></div>"
     },
     {
      "id": "s29",
      "title": "✅ O seu checklist da aula",
-     "html": "<div class=\"cklist\"><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span><strong>OBRIGATÓRIO:</strong> Conferi que o código do curso dos materiais é o mesmo do grupo atribuído a mim.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span><strong>OBRIGATÓRIO:</strong> Pelo menos 30 minutos antes da aula abri os cartões, li todas as Teacher notes (e o vídeo de orientação) e resolvi todas as tarefas eu mesmo.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Sei qual é a ideia principal que o aluno precisa entender hoje e onde ele pode travar.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Testei o Follow Mode, os links e o login do aluno na plataforma.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Fiz uma pergunta de intuição antes de cada conceito novo e perguntei \"Como você pensou?\" pelo menos três vezes.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Mantive a atividade individual e o fechamento, mesmo com pouco tempo.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Depois da aula, anotei o que foi difícil para o aluno, para revisar na próxima vez.</span></button></div>\n<div class=\"callout\">\n<p>Algo não está claro? <strong>O seu mentor regional de TD está pronto para ajudar</strong> — pergunte antes da aula.</p>\n</div>"
+     "html": "<div class=\"cklist\"><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span><strong>OBRIGATÓRIO:</strong> Conferi que o código do curso dos materiais é o mesmo do grupo atribuído a mim.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span><strong>OBRIGATÓRIO:</strong> Pelo menos 30 minutos antes da aula abri os cartões, li todas as Teacher notes (e o vídeo de orientação) e resolvi todas as tarefas eu mesmo.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Sei qual é a ideia principal que o aluno precisa entender hoje e onde ele pode travar.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Testei o Follow Mode, os links e o login do aluno na plataforma.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Fiz uma pergunta de intuição antes de cada conceito novo e perguntei \"Como você pensou?\" pelo menos três vezes.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Mantive a atividade individual e o fechamento, mesmo com pouco tempo.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Depois da aula, anotei o que foi difícil para o aluno, para revisar na próxima vez.</span></button></div>\n<div class=\"callout\">\n<p>Algum ponto não está claro? <strong>O seu mentor regional de TD está pronto para ajudar</strong> — pergunte antes da aula.</p>\n</div>"
     },
     {
      "id": "s210",
@@ -1344,9 +1344,9 @@ window.COURSE = {
   },
   "classroom": {
    "ui": {
-    "start": "👆 Clique na primeira parada para começar",
-    "next": "Próxima parada →",
-    "done": "✅ Você percorreu uma aula inteira no Classroom.",
+    "start": "👆 Clique na primeira etapa para começar",
+    "next": "Próxima etapa →",
+    "done": "✅ Você passou por uma aula inteira no Classroom.",
     "again": "↺ Começar de novo"
    },
    "stops": [
@@ -1699,7 +1699,7 @@ window.COURSE = {
      ],
      [
       "🙋",
-      "Algo não está claro? <b>O seu mentor de TD está pronto para ajudar</b> — pergunte antes da aula."
+      "Algum ponto não está claro? <b>O seu mentor de TD está pronto para ajudar</b> — pergunte antes da aula."
      ]
     ]
    }
@@ -1994,368 +1994,392 @@ window.COURSE = {
   "ui": {
    "sound": "🔊 Ativar o som",
    "again": "↺ Ver de novo",
-   "region": "Gravação de aula real · LATAM · {lvl} · falada em espanhol",
+   "region": "Gravação de aula real · {src} · {lvl} · falada em {lang}",
    "subs": "Legendas traduzidas para o português",
    "nosubs": "Sem legendas: observe o fluxo da aula",
    "focus": "Foque em",
    "clip": "Trecho",
    "tutor": "Tutor",
-   "student": "Aluna",
-   "play": "▶ Assistir ao trecho"
+   "student": "Aluno(a)",
+   "play": "▶ Assistir ao trecho",
+   "unavailable": "Este vídeo não está disponível no momento."
   },
   "items": {
    "clip-intuition": {
-    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
-    "start": 1370.0,
-    "end": 1564.0,
+    "src": "assets/video/clip-intuition.mp4",
+    "start": 0.0,
+    "end": 154.0,
     "auto": true,
-    "title": "De um objeto real à definição: paralelogramos",
-    "focus": "A tutora começa por algo real (uma baklava) e pergunta \"que formas os pedaços fazem?\" antes de dar qualquer definição. Repare como as cores mostram lados e ângulos iguais, e como a nova figura é ligada a figuras que a aluna já conhece (losango, retângulo, quadrado).",
-    "region": "Gravação de aula real · LATAM · Nível 7 · falada em espanhol",
+    "local": true,
+    "title": "Peça a estratégia: o aluno deduz os ângulos",
+    "focus": "O tutor não dá o método. Ele pergunta \"Que estratégia você imagina?\" e depois só faz perguntas curtas (Quanto somam os ângulos? O que fazemos com 360 e 100? Como são A e C?). O aluno deduz cada passo, e o tutor elogia o raciocínio.",
+    "region": "Gravação de aula real · assets/video/clip-intuition.mp4 · Níveis 5–7 · falada em espanhol",
     "subs": [
      [
-      1373.4,
-      1375.0,
+      2.400000000000091,
+      4.400000000000091,
       "T",
-      "Você sabe o que é baklava?"
+      "Confere — e ao mesmo tempo encontramos os ângulos."
      ],
      [
-      1382.7,
-      1389.6,
+      4.400000000000091,
+      22.800000000000182,
       "T",
-      "Então, esta sobremesa tradicional…"
+      "Por que confere? Porque no paralelogramo este ângulo é igual a este: 50 e 50."
      ],
      [
-      1391.8,
-      1399.7,
+      22.800000000000182,
+      47.40000000000009,
       "T",
-      "Quando a gente corta em pedaços, que formas você acha que eles fazem?"
+      "E como encontramos os outros dois? Quero ouvir a sua estratégia. Que estratégia você imagina?"
      ],
      [
-      1399.9,
-      1402.5,
+      47.40000000000009,
+      50.40000000000009,
       "S",
-      "Um paralelogramo?"
+      "O A e o C…"
      ],
      [
-      1403.3,
-      1408.9,
+      50.40000000000009,
+      65.40000000000009,
       "T",
-      "Paralelogramos! Então, o que é um paralelogramo?"
+      "Este é um exercício clássico de prova — e aqui não vale dizer \"você não me ensinou\": é uma propriedade."
      ],
      [
-      1409.4,
-      1419.8,
+      67.40000000000009,
+      75.40000000000009,
       "T",
-      "Um paralelogramo é um quadrilátero — 4 lados — em que os lados opostos…"
+      "Quanto somam os ângulos de qualquer quadrilátero?"
      ],
      [
-      1421.4,
-      1428.6,
-      "T",
-      "…são iguais: este lado roxo é igual a este roxo aqui."
-     ],
-     [
-      1430.2,
-      1439.5,
-      "T",
-      "E este azul é igual a este azul."
-     ],
-     [
-      1441.3,
-      1445.7,
-      "T",
-      "Iguais e paralelos — nunca se encontram."
-     ],
-     [
-      1447.8,
-      1467.4,
-      "T",
-      "Também tem ângulos opostos: este ângulo vermelho é igual a este, e o verde é igual ao outro verde."
-     ],
-     [
-      1475.9,
-      1477.5,
+      75.40000000000009,
+      78.0,
       "S",
-      "Isso é um paralelogramo."
+      "…360."
      ],
      [
-      1478.0,
-      1481.1,
+      78.0,
+      85.40000000000009,
       "T",
-      "Sim, esta figura é um paralelogramo."
+      "360, excelente. E quantos ângulos encontramos até agora?"
      ],
      [
-      1482.5,
-      1500.6,
+      85.40000000000009,
+      91.40000000000009,
       "T",
-      "Os paralelogramos também têm diagonais — e uma diagonal divide a figura em triângulos iguais."
+      "Dois, e são iguais. Quanto somam esses dois?"
      ],
      [
-      1510.6,
-      1524.1,
-      "T",
-      "Há tipos que já conhecemos, como o losango — todos os lados iguais. Incline a cabeça e você vê um losango."
-     ],
-     [
-      1525.5,
-      1546.0,
-      "T",
-      "Um retângulo também é um paralelogramo — a diferença é que os ângulos são retos, de 90 graus."
-     ],
-     [
-      1546.4,
-      1548.2,
+      91.40000000000009,
+      93.40000000000009,
       "S",
-      "Um quadrado também?"
+      "100."
      ],
      [
-      1549.2,
-      1560.3,
+      93.40000000000009,
+      100.69999999999982,
       "T",
-      "Um quadrado — sim, também é um paralelogramo: como um losango com ângulos retos."
+      "Bem. Então o que fazemos com o 360 e esse 100?"
+     ],
+     [
+      100.69999999999982,
+      106.5,
+      "S",
+      "Subtrair 100."
+     ],
+     [
+      106.5,
+      109.40000000000009,
+      "T",
+      "Muito bem — e quanto dá?"
+     ],
+     [
+      109.40000000000009,
+      111.69999999999982,
+      "S",
+      "260."
+     ],
+     [
+      111.69999999999982,
+      117.0,
+      "T",
+      "260, muito bem — você está deduzindo perfeitamente."
+     ],
+     [
+      117.0,
+      125.40000000000009,
+      "T",
+      "Então isso é A mais C. E o que mais sabemos sobre A e C?"
+     ],
+     [
+      127.5,
+      129.0999999999999,
+      "S",
+      "São iguais?"
+     ],
+     [
+      129.0999999999999,
+      134.0999999999999,
+      "T",
+      "Então como dividimos esses 260 entre os dois?"
+     ],
+     [
+      134.0999999999999,
+      146.0999999999999,
+      "S",
+      "Divido por 2: 130 — esse é o ângulo A e o ângulo C."
+     ],
+     [
+      146.0999999999999,
+      152.0999999999999,
+      "T",
+      "Excelente — uma ótima dedução!"
      ]
     ]
    },
    "clip-mistake": {
-    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
-    "start": 2358.0,
-    "end": 2516.0,
+    "src": "assets/video/clip-mistake.mp4",
+    "start": 0.0,
+    "end": 74.0,
     "auto": true,
-    "title": "Lidar com um erro sem dar a resposta",
-    "focus": "A aluna lê um 6 como 8. A tutora não diz a resposta: pergunta \"por que 12 × 8?\", mostra onde olhar e deixa a aluna encontrar o deslize e resolver de novo — e depois elogia o resultado.",
-    "region": "Gravação de aula real · LATAM · Nível 7 · falada em espanhol",
+    "local": true,
+    "title": "Um passo errado respondido com uma pergunta",
+    "focus": "O aluno chuta a operação errada (\"Subtraio… multiplico…\"). O tutor não diz \"errado\" e não dá a resposta: pergunta \"Qual é o oposto da multiplicação?\" — e o aluno encontra sozinho o passo certo.",
+    "region": "Gravação de aula real · assets/video/clip-mistake.mp4 · Níveis 5–7 · falada em espanhol",
     "subs": [
      [
-      2360.3,
-      2371.4,
+      2.099999999999909,
+      6.900000000000091,
+      "T",
+      "O 20 fica sozinho — e o −40, como eu tiro ele daí?"
+     ],
+     [
+      6.900000000000091,
+      11.5,
+      "T",
+      "Somamos 40 — excelente."
+     ],
+     [
+      18.5,
+      32.5,
+      "T",
+      "20 mais 40: 60. 3x menos x: 2x. Muito bem."
+     ],
+     [
+      32.5,
+      37.0,
+      "T",
+      "Como eu tiro esse 2 daqui?"
+     ],
+     [
+      37.0,
+      49.69999999999982,
       "S",
-      "E agora 12 metros vezes 8…"
+      "Eu subtraio… eu multiplico…"
      ],
      [
-      2377.7,
-      2383.0,
+      49.69999999999982,
+      54.69999999999982,
+      "T",
+      "Qual é o oposto da multiplicação?"
+     ],
+     [
+      54.69999999999982,
+      57.69999999999982,
       "S",
-      "96, menos 20: 76."
+      "Dividir."
      ],
      [
-      2384.6,
-      2387.5,
+      57.69999999999982,
+      60.69999999999982,
       "T",
-      "Só uma coisinha — por que 12 vezes 8?"
+      "Muito bem, eu divido — por qual número?"
      ],
      [
-      2391.5,
-      2395.2,
-      "T",
-      "Olha bem: ali é um 6."
-     ],
-     [
-      2398.9,
-      2406.4,
-      "T",
-      "Olha aqui — é fácil confundir."
-     ],
-     [
-      2419.5,
-      2423.8,
-      "T",
-      "Sim, parece um 8, mas é um 6."
-     ],
-     [
-      2448.3,
-      2450.2,
+      60.69999999999982,
+      68.0,
       "S",
-      "Eu tinha dito 76."
+      "Por dois — assim o x fica sozinho."
      ],
      [
-      2452.1,
-      2458.1,
+      69.69999999999982,
+      71.69999999999982,
       "T",
-      "Sim, mas não é 8 — é 6."
-     ],
-     [
-      2469.9,
-      2484.6,
-      "S",
-      "Ah, eu não vi isso. Achei que media o mesmo, então somei 4 — por isso deu 8. Vou fazer de novo."
-     ],
-     [
-      2485.0,
-      2486.1,
-      "T",
-      "Vai lá!"
-     ],
-     [
-      2498.8,
-      2506.1,
-      "S",
-      "…72 menos 20… 52."
-     ],
-     [
-      2506.6,
-      2508.1,
-      "T",
-      "Muito bem!"
-     ],
-     [
-      2508.4,
-      2514.8,
-      "T",
-      "A altura não mede necessariamente o dobro do outro lado."
+      "Muito bem."
      ]
     ]
    },
    "clip-individual": {
-    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
-    "start": 3578.0,
-    "end": 3680.0,
+    "src": "assets/video/clip-individual.mp4",
+    "start": 0.0,
+    "end": 245.0,
     "auto": true,
-    "title": "A atividade individual: a aluna trabalha, a tutora orienta",
-    "focus": "A aluna responde aos cartões na plataforma sozinha. A tutora não resolve: só esclarece o que o enunciado diz e corrige uma concepção errada (retângulo não é quadrado) com uma explicação curta.",
-    "region": "Gravação de aula real · LATAM · Nível 7 · falada em espanhol",
+    "local": true,
+    "title": "A atividade individual: perguntas orientadoras, o aluno resolve",
+    "focus": "Em um cartão com pontuação o aluno travou. O tutor não resolve: o próprio aluno traça as linhas de apoio, e o tutor só pergunta qual propriedade vale (retas paralelas, ângulos alternos, 180°). O aluno escreve a equação sozinho.",
+    "region": "Gravação de aula real · assets/video/clip-individual.mp4 · Níveis 5–7 · falada em espanhol",
     "subs": [
      [
-      3580.0,
-      3589.4,
-      "S",
-      "…Tem 2 pares de ângulos opostos."
-     ],
-     [
-      3590.6,
-      3600.1,
+      2.099999999999909,
+      5.5,
       "T",
-      "Isso. Tem 2 pares de lados opostos: o de cima é oposto ao de baixo."
+      "O ângulo A é igual ao ângulo B?"
      ],
      [
-      3600.1,
-      3612.7,
+      6.099999999999909,
+      9.099999999999909,
       "S",
-      "Tipo este e este?"
+      "Não, não é igual."
      ],
      [
-      3616.4,
-      3624.0,
+      9.099999999999909,
+      14.099999999999909,
       "T",
-      "Estamos falando de lados — o lado de cima inteiro."
+      "Olha, o que podemos fazer aqui é desenhar — dá para ver?"
      ],
      [
-      3624.7,
-      3638.4,
-      "S",
-      "Claro que são iguais. Um paralelogramo tem lados opostos iguais e paralelos… acho que o quadrado poderia ser."
-     ],
-     [
-      3639.0,
-      3653.7,
+      18.09999999999991,
+      28.59999999999991,
       "T",
-      "Muito bem — o quadrado, sim. Mas o retângulo não tem todos os lados iguais; só o quadrado."
+      "Trace uma reta vertical pelo meio da figura, dividindo ao meio."
      ],
      [
-      3661.2,
-      3665.2,
+      34.69999999999982,
+      36.80000000000018,
       "S",
-      "Mas você não me disse que o quadrado era um paralelogramo?"
+      "Assim?"
      ],
      [
-      3665.5,
-      3673.7,
+      36.80000000000018,
+      45.09999999999991,
       "T",
-      "Sim, mas aqui diz retângulo, e o retângulo não tem todos os lados iguais. Se dissesse quadrado, seria verdade."
+      "Não, essa seria oblíqua. Tem que ser vertical — perpendicular à base."
      ],
      [
-      3674.4,
-      3676.4,
+      51.5,
+      68.69999999999982,
+      "T",
+      "Pelo meio, como se dividisse ao meio… Isso — muito bem."
+     ],
+     [
+      86.80000000000018,
+      97.0,
+      "T",
+      "Lembre de mais uma coisa: como são AD e BC?"
+     ],
+     [
+      97.0,
+      99.0,
       "S",
-      "Entendi, ok."
+      "Paralelas."
+     ],
+     [
+      99.0,
+      105.80000000000018,
+      "T",
+      "Bem — prolongue uma reta paralela a elas."
+     ],
+     [
+      132.30000000000018,
+      159.30000000000018,
+      "T",
+      "Temos duas retas paralelas e uma oblíqua passando por A e B. Qual é o ângulo alterno interno de A?"
+     ],
+     [
+      159.30000000000018,
+      166.30000000000018,
+      "T",
+      "Isso, perfeito — muito, muito bem."
+     ],
+     [
+      166.30000000000018,
+      168.30000000000018,
+      "T",
+      "E quanto mede esse ângulo?"
+     ],
+     [
+      168.30000000000018,
+      172.30000000000018,
+      "S",
+      "2x mais 20."
+     ],
+     [
+      172.30000000000018,
+      176.30000000000018,
+      "T",
+      "Muito bem — exatamente."
+     ],
+     [
+      176.30000000000018,
+      186.69999999999982,
+      "T",
+      "Então, se somarmos os dois ângulos, quanto vai dar? Olhe onde está o B."
+     ],
+     [
+      222.9000000000001,
+      226.69999999999982,
+      "T",
+      "Quanto eles têm que somar?"
+     ],
+     [
+      226.69999999999982,
+      228.4000000000001,
+      "S",
+      "180."
+     ],
+     [
+      228.4000000000001,
+      244.0,
+      "T",
+      "Excelente. Some os dois, isole o x — e você resolveu o exercício."
      ]
     ]
    },
    "clip-closing": {
-    "src": "https://d1tngwebo1bj0u.cloudfront.net/67ca5e06-5211-42fc-b63a-0f158f41687b_2026-09-08_13:56:37_AAvXsoxFg.mp4",
-    "start": 4415.0,
-    "end": 4503.0,
+    "src": "assets/video/clip-closing.mp4",
+    "start": 0.0,
+    "end": 66.0,
     "auto": true,
-    "title": "Um fechamento consistente com um gostinho da próxima aula",
-    "focus": "O tutor acalma a aluna, pergunta \"O que aprendemos hoje?\" e deixa ela responder primeiro, depois resume os objetivos da aula e termina com um gostinho da próxima aventura com Rafi e Sophie.",
-    "region": "Gravação de aula real · LATAM · Nível 6 · falada em espanhol",
+    "local": true,
+    "title": "Um gostinho da próxima aula",
+    "focus": "O tutor liga a próxima aula ao que o aluno já conhece (as áreas do quadrado, do retângulo e do triângulo) para despertar a curiosidade. No nosso fechamento, mantenha também a reflexão — \"Qual foi a parte mais difícil hoje?\" — e o lembrete da lição de casa antes do gostinho da próxima aula.",
+    "region": "Gravação de aula real · assets/video/clip-closing.mp4 · Níveis 5–7 · falada em espanhol",
     "subs": [
      [
-      4416.8,
-      4419.1,
-      "S",
-      "Ai, não entendi…"
-     ],
-     [
-      4419.1,
-      4424.9,
+      2.400000000000091,
+      16.09999999999991,
       "T",
-      "Calma, calma. Já adiantamos bastante a parte individual."
+      "Vamos parar de compartilhar. Tente fazer os outros exercícios — faltam só dois. Alguma pergunta?"
      ],
      [
-      4428.1,
-      4431.2,
+      21.09999999999991,
+      38.09999999999991,
       "T",
-      "Muito bem. O que aprendemos hoje?"
+      "Na próxima aula vamos descobrir o mundo fascinante das áreas e perímetros de diferentes quadriláteros — as fórmulas do quadrado, do retângulo e de outras figuras."
      ],
      [
-      4432.0,
-      4434.0,
-      "S",
-      "Probabilidades."
-     ],
-     [
-      4435.4,
-      4440.2,
+      38.09999999999991,
+      52.5,
       "T",
-      "Probabilidades. Muito bem — e o que mais?"
+      "O quadrado, o retângulo e o triângulo a gente já conhece — vamos trabalhar com o trapézio, o trapezoide e o losango."
      ],
      [
-      4441.1,
-      4446.3,
-      "S",
-      "Também padrões… sequências."
-     ],
-     [
-      4446.3,
-      4469.5,
+      52.5,
+      61.30000000000018,
       "T",
-      "Muito bem. Hoje aprendemos o que é uma sequência de números e como ela é diferente de um conjunto, como achar termos que faltam com regras e fórmulas, e como identificar padrões e ciclos."
-     ],
-     [
-      4470.2,
-      4477.4,
-      "T",
-      "Na próxima aula vamos revisar tudo o que aprendemos no curso até agora."
-     ],
-     [
-      4477.6,
-      4483.1,
-      "T",
-      "Então prepare-se para uma aventura emocionante — Rafi e Sophie vão sair em expedição com a turma!"
-     ],
-     [
-      4483.5,
-      4494.9,
-      "T",
-      "Por hoje é isso. Obrigado por participar — até mais!"
-     ],
-     [
-      4496.2,
-      4501.1,
-      "T",
-      "…para você adiantar. Até terça que vem, se cuida, tchau!"
+      "Alguma pergunta até aqui?"
      ]
     ]
    },
    "teach": {
-    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
-    "start": 180.0,
-    "end": 3796.0,
+    "src": "https://d1tngwebo1bj0u.cloudfront.net/1a193165-f766-446e-a5aa-748c6f7c10fe_2026-10-28_20:59:59_1hbdiURt5.mp4",
+    "start": 20.0,
+    "end": 4000.0,
     "auto": false,
-    "title": "Uma aula completa: área de paralelogramos",
-    "focus": "O fluxo completo de uma aula com cartões: abertura acolhedora (~3–7 min), revisão (~7–11), a história e a prática guiada (~11–37), uma tarefa mais difícil juntos (~37–47), o trabalho individual na plataforma (~53–62) e o fechamento. Atenção: há alguns problemas técnicos e uma pausa por volta de 47–51 min — você pode pular essa parte.",
-    "region": "Gravação de aula real · LATAM · Nível 7 · falada em espanhol",
+    "local": false,
+    "title": "Uma aula completa: quadriláteros e suas propriedades",
+    "focus": "Acompanhe o fluxo: abertura e revisão (~0–10 min), objetivos do dia e a história (~10–12), as propriedades dos quadriláteros (~12–24), prática guiada com equações (~24–44), a atividade individual na plataforma (~44–63) e o gostinho da próxima aula (~64). Atenção: este tutor explica bastante — nas suas aulas, deixe o aluno falar e tentar mais.",
+    "region": "Gravação de aula real · https://d1tngwebo1bj0u.cloudfront.net/1a193165-f766-446e-a5aa-748c6f7c10fe_2026-10-28_20:59:59_1hbdiURt5.mp4 · Níveis 5–7 · falada em espanhol",
     "subs": []
    }
   }

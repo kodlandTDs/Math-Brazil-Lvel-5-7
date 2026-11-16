@@ -1994,368 +1994,392 @@ window.COURSE = {
   "ui": {
    "sound": "🔊 Turn on the sound",
    "again": "↺ Watch again",
-   "region": "Real lesson recording · LATAM · {lvl} · spoken in Spanish",
+   "region": "Real lesson recording · {src} · {lvl} · spoken in {lang}",
    "subs": "Subtitles translated into English",
    "nosubs": "No subtitles: watch the flow of the lesson",
    "focus": "Focus on",
    "clip": "Clip",
    "tutor": "Tutor",
    "student": "Student",
-   "play": "▶ Play the clip"
+   "play": "▶ Play the clip",
+   "unavailable": "This video is not available right now."
   },
   "items": {
    "clip-intuition": {
-    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
-    "start": 1370.0,
-    "end": 1564.0,
+    "src": "assets/video/clip-intuition.mp4",
+    "start": 0.0,
+    "end": 154.0,
     "auto": true,
-    "title": "From a real object to the definition: parallelograms",
-    "focus": "The tutor starts from something real (a baklava) and asks \"what shapes do the pieces make?\" before giving any definition. Notice how colours show equal sides and angles, and how the new shape is linked to shapes the student already knows (rhombus, rectangle, square).",
-    "region": "Real lesson recording · LATAM · Level 7 · spoken in Spanish",
+    "local": true,
+    "title": "Ask for the strategy: the student deduces the angles",
+    "focus": "The tutor does not give the method. He asks \"What strategy can you think of?\" and then only short questions (How much do the angles add up to? What do we do with 360 and 100? How are A and C?). The student deduces every step, and the tutor praises the reasoning.",
+    "region": "Real lesson recording · assets/video/clip-intuition.mp4 · Levels 5–7 · spoken in Spanish",
     "subs": [
      [
-      1373.4,
-      1375.0,
+      2.400000000000091,
+      4.400000000000091,
       "T",
-      "Do you know what baklava is?"
+      "It checks — and at the same time we found the angles."
      ],
      [
-      1382.7,
-      1389.6,
+      4.400000000000091,
+      22.800000000000182,
       "T",
-      "So, this traditional dessert…"
+      "Why does it check? Because in a parallelogram this angle is equal to this one: 50 and 50."
      ],
      [
-      1391.8,
-      1399.7,
+      22.800000000000182,
+      47.40000000000009,
       "T",
-      "When we cut it into pieces, what shapes do you think they make?"
+      "And how do we find the other two? I want to hear your strategy. What strategy can you think of?"
      ],
      [
-      1399.9,
-      1402.5,
+      47.40000000000009,
+      50.40000000000009,
       "S",
-      "A parallelogram?"
+      "A and C…"
      ],
      [
-      1403.3,
-      1408.9,
+      50.40000000000009,
+      65.40000000000009,
       "T",
-      "Parallelograms! So, what is a parallelogram?"
+      "This is a classic exam exercise — and here you can't say \"you didn't teach me\": it's a property."
      ],
      [
-      1409.4,
-      1419.8,
+      67.40000000000009,
+      75.40000000000009,
       "T",
-      "A parallelogram is a quadrilateral — 4 sides — whose opposite sides…"
+      "How much do the angles of any quadrilateral add up to?"
      ],
      [
-      1421.4,
-      1428.6,
-      "T",
-      "…are equal: this purple side is equal to this purple one."
-     ],
-     [
-      1430.2,
-      1439.5,
-      "T",
-      "And this blue one is equal to this blue one."
-     ],
-     [
-      1441.3,
-      1445.7,
-      "T",
-      "Equal and parallel — they never meet."
-     ],
-     [
-      1447.8,
-      1467.4,
-      "T",
-      "It also has opposite angles: this red angle equals this one, and the green equals the other green."
-     ],
-     [
-      1475.9,
-      1477.5,
+      75.40000000000009,
+      78.0,
       "S",
-      "That is a parallelogram."
+      "…360."
      ],
      [
-      1478.0,
-      1481.1,
+      78.0,
+      85.40000000000009,
       "T",
-      "Yes, this figure is a parallelogram."
+      "360, excellent. And how many angles have we found so far?"
      ],
      [
-      1482.5,
-      1500.6,
+      85.40000000000009,
+      91.40000000000009,
       "T",
-      "Parallelograms also have diagonals — and a diagonal divides it into equal triangles."
+      "Two, and they are equal. How much do those two add up to?"
      ],
      [
-      1510.6,
-      1524.1,
-      "T",
-      "There are types we already know, like the rhombus — all sides equal. Tilt your head and you see a rhombus."
-     ],
-     [
-      1525.5,
-      1546.0,
-      "T",
-      "A rectangle is also a parallelogram — the difference is that its angles are right angles, 90 degrees."
-     ],
-     [
-      1546.4,
-      1548.2,
+      91.40000000000009,
+      93.40000000000009,
       "S",
-      "A square too?"
+      "100."
      ],
      [
-      1549.2,
-      1560.3,
+      93.40000000000009,
+      100.69999999999982,
       "T",
-      "A square — yes, it is also a parallelogram: like a rhombus with right angles."
+      "Good. So what do we do with the 360 and that 100?"
+     ],
+     [
+      100.69999999999982,
+      106.5,
+      "S",
+      "Subtract 100."
+     ],
+     [
+      106.5,
+      109.40000000000009,
+      "T",
+      "Very good — and what is the result?"
+     ],
+     [
+      109.40000000000009,
+      111.69999999999982,
+      "S",
+      "260."
+     ],
+     [
+      111.69999999999982,
+      117.0,
+      "T",
+      "260, very good — you are deducing perfectly."
+     ],
+     [
+      117.0,
+      125.40000000000009,
+      "T",
+      "So that is A plus C. And what else do we know about A and C?"
+     ],
+     [
+      127.5,
+      129.0999999999999,
+      "S",
+      "They are equal?"
+     ],
+     [
+      129.0999999999999,
+      134.0999999999999,
+      "T",
+      "So how do we share those 260 between them?"
+     ],
+     [
+      134.0999999999999,
+      146.0999999999999,
+      "S",
+      "I divide by 2: 130 — that is angle A and angle C."
+     ],
+     [
+      146.0999999999999,
+      152.0999999999999,
+      "T",
+      "Excellent — a very good deduction!"
      ]
     ]
    },
    "clip-mistake": {
-    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
-    "start": 2358.0,
-    "end": 2516.0,
+    "src": "assets/video/clip-mistake.mp4",
+    "start": 0.0,
+    "end": 74.0,
     "auto": true,
-    "title": "Handling a mistake without giving the answer",
-    "focus": "The student misreads a 6 as an 8. The tutor does not say the answer: she asks \"why 12 × 8?\", shows where to look, and lets the student find the slip and solve it again — then praises the result.",
-    "region": "Real lesson recording · LATAM · Level 7 · spoken in Spanish",
+    "local": true,
+    "title": "A wrong step answered with a question",
+    "focus": "The student guesses the wrong operation (\"I subtract it… I multiply it…\"). The tutor does not say \"wrong\" and does not give the answer: he asks \"What is the opposite of multiplication?\" — and the student finds the right step himself.",
+    "region": "Real lesson recording · assets/video/clip-mistake.mp4 · Levels 5–7 · spoken in Spanish",
     "subs": [
      [
-      2360.3,
-      2371.4,
+      2.099999999999909,
+      6.900000000000091,
+      "T",
+      "The 20 stays alone — and the −40, how do I get rid of it?"
+     ],
+     [
+      6.900000000000091,
+      11.5,
+      "T",
+      "We add 40 — excellent."
+     ],
+     [
+      18.5,
+      32.5,
+      "T",
+      "20 plus 40: 60. 3x minus x: 2x. Very good."
+     ],
+     [
+      32.5,
+      37.0,
+      "T",
+      "How do I get rid of that 2 here?"
+     ],
+     [
+      37.0,
+      49.69999999999982,
       "S",
-      "And now 12 metres times 8…"
+      "I subtract it… I multiply it…"
      ],
      [
-      2377.7,
-      2383.0,
+      49.69999999999982,
+      54.69999999999982,
+      "T",
+      "What is the opposite of multiplication?"
+     ],
+     [
+      54.69999999999982,
+      57.69999999999982,
       "S",
-      "96, minus 20: 76."
+      "Dividing."
      ],
      [
-      2384.6,
-      2387.5,
+      57.69999999999982,
+      60.69999999999982,
       "T",
-      "Just one thing — why 12 times 8?"
+      "Very good, I divide — by which number?"
      ],
      [
-      2391.5,
-      2395.2,
-      "T",
-      "Look carefully: it is a 6 there."
-     ],
-     [
-      2398.9,
-      2406.4,
-      "T",
-      "Look here — it is easy to confuse."
-     ],
-     [
-      2419.5,
-      2423.8,
-      "T",
-      "Yes, it looks like an 8, but it is a 6."
-     ],
-     [
-      2448.3,
-      2450.2,
+      60.69999999999982,
+      68.0,
       "S",
-      "I had said 76."
+      "By two — so the x stays alone."
      ],
      [
-      2452.1,
-      2458.1,
+      69.69999999999982,
+      71.69999999999982,
       "T",
-      "Yes, but it is not 8 — it is 6."
-     ],
-     [
-      2469.9,
-      2484.6,
-      "S",
-      "Oh, I didn't see that. I thought it was the same length, so I added 4 — that's why I got 8. I'll do it again."
-     ],
-     [
-      2485.0,
-      2486.1,
-      "T",
-      "Go for it!"
-     ],
-     [
-      2498.8,
-      2506.1,
-      "S",
-      "…72 minus 20… 52."
-     ],
-     [
-      2506.6,
-      2508.1,
-      "T",
-      "Very good!"
-     ],
-     [
-      2508.4,
-      2514.8,
-      "T",
-      "The height is not necessarily double the other side."
+      "Very good."
      ]
     ]
    },
    "clip-individual": {
-    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
-    "start": 3578.0,
-    "end": 3680.0,
+    "src": "assets/video/clip-individual.mp4",
+    "start": 0.0,
+    "end": 245.0,
     "auto": true,
-    "title": "The individual activity: the student works, the tutor guides",
-    "focus": "The student answers the cards on the platform by herself. The tutor does not solve them: she only clarifies what the statement says and fixes a misconception (a rectangle is not a square) with a short explanation.",
-    "region": "Real lesson recording · LATAM · Level 7 · spoken in Spanish",
+    "local": true,
+    "title": "The individual activity: guiding questions, the student solves",
+    "focus": "In a scored card the student is stuck. The tutor does not solve it: the student draws the helper lines himself, and the tutor only asks which property applies (parallel lines, alternate angles, 180°). The student writes the equation on his own.",
+    "region": "Real lesson recording · assets/video/clip-individual.mp4 · Levels 5–7 · spoken in Spanish",
     "subs": [
      [
-      3580.0,
-      3589.4,
-      "S",
-      "…It has 2 pairs of opposite angles."
-     ],
-     [
-      3590.6,
-      3600.1,
+      2.099999999999909,
+      5.5,
       "T",
-      "Mm-hm. It has 2 pairs of opposite sides: the top one is opposite the bottom one."
+      "Is angle A equal to angle B?"
      ],
      [
-      3600.1,
-      3612.7,
+      6.099999999999909,
+      9.099999999999909,
       "S",
-      "Like this one and this one?"
+      "No, it is not the same."
      ],
      [
-      3616.4,
-      3624.0,
+      9.099999999999909,
+      14.099999999999909,
       "T",
-      "We are talking about sides — the whole top side."
+      "Look, what we can do here is draw — can you see it?"
      ],
      [
-      3624.7,
-      3638.4,
-      "S",
-      "Of course they are equal. A parallelogram has opposite sides that are equal and parallel… I think the square could be."
-     ],
-     [
-      3639.0,
-      3653.7,
+      18.09999999999991,
+      28.59999999999991,
       "T",
-      "Very good — the square, yes. But a rectangle does not have all sides equal; only the square does."
+      "Draw a vertical line through the middle of the figure, cutting it in half."
      ],
      [
-      3661.2,
-      3665.2,
+      34.69999999999982,
+      36.80000000000018,
       "S",
-      "But didn't you tell me the square was a parallelogram?"
+      "Like this?"
      ],
      [
-      3665.5,
-      3673.7,
+      36.80000000000018,
+      45.09999999999991,
       "T",
-      "Yes, but this says rectangle, and a rectangle does not have all sides equal. If it said square, it would be true."
+      "No, that would be oblique. It must be vertical — perpendicular to the base."
      ],
      [
-      3674.4,
-      3676.4,
+      51.5,
+      68.69999999999982,
+      "T",
+      "Through the middle, as if cutting it in half… That's it — very good."
+     ],
+     [
+      86.80000000000018,
+      97.0,
+      "T",
+      "Remember one more thing: how are AD and BC?"
+     ],
+     [
+      97.0,
+      99.0,
       "S",
-      "Got it, okay."
+      "Parallel."
+     ],
+     [
+      99.0,
+      105.80000000000018,
+      "T",
+      "Good — extend a line parallel to them."
+     ],
+     [
+      132.30000000000018,
+      159.30000000000018,
+      "T",
+      "We have two parallel lines and an oblique one through A and B. Which angle is the alternate interior angle of A?"
+     ],
+     [
+      159.30000000000018,
+      166.30000000000018,
+      "T",
+      "Yes, perfect — very, very good."
+     ],
+     [
+      166.30000000000018,
+      168.30000000000018,
+      "T",
+      "And how much does that angle measure?"
+     ],
+     [
+      168.30000000000018,
+      172.30000000000018,
+      "S",
+      "2x plus 20."
+     ],
+     [
+      172.30000000000018,
+      176.30000000000018,
+      "T",
+      "Very good — exactly."
+     ],
+     [
+      176.30000000000018,
+      186.69999999999982,
+      "T",
+      "So if we add the two angles, how much will they measure? Look at where B is."
+     ],
+     [
+      222.9000000000001,
+      226.69999999999982,
+      "T",
+      "How much should they add up to?"
+     ],
+     [
+      226.69999999999982,
+      228.4000000000001,
+      "S",
+      "180."
+     ],
+     [
+      228.4000000000001,
+      244.0,
+      "T",
+      "Excellent. Add the two, solve for x — and you have solved the exercise."
      ]
     ]
    },
    "clip-closing": {
-    "src": "https://d1tngwebo1bj0u.cloudfront.net/67ca5e06-5211-42fc-b63a-0f158f41687b_2026-09-08_13:56:37_AAvXsoxFg.mp4",
-    "start": 4415.0,
-    "end": 4503.0,
+    "src": "assets/video/clip-closing.mp4",
+    "start": 0.0,
+    "end": 66.0,
     "auto": true,
-    "title": "A consistent closing with a teaser of the next lesson",
-    "focus": "The tutor calms the student down, asks \"What did we learn today?\" and lets her answer first, then sums up the goals of the lesson and ends with a teaser of the next adventure with Rafi and Sophie.",
-    "region": "Real lesson recording · LATAM · Level 6 · spoken in Spanish",
+    "local": true,
+    "title": "A teaser of the next lesson",
+    "focus": "The tutor links the next lesson to what the student already knows (the areas of the square, rectangle and triangle) to make him curious. In our closing, also keep the reflection — \"What was the hardest part today?\" — and the homework reminder before the teaser.",
+    "region": "Real lesson recording · assets/video/clip-closing.mp4 · Levels 5–7 · spoken in Spanish",
     "subs": [
      [
-      4416.8,
-      4419.1,
-      "S",
-      "Oh, I don't get it…"
-     ],
-     [
-      4419.1,
-      4424.9,
+      2.400000000000091,
+      16.09999999999991,
       "T",
-      "Easy, easy. We already did a lot of the self-study."
+      "Let's stop sharing. Try to do the other exercises — only two are left. Any questions?"
      ],
      [
-      4428.1,
-      4431.2,
+      21.09999999999991,
+      38.09999999999991,
       "T",
-      "Good. What did we learn today?"
+      "Next lesson we will discover the fascinating world of areas and perimeters of different quadrilaterals — the formulas for squares, rectangles and other figures."
      ],
      [
-      4432.0,
-      4434.0,
-      "S",
-      "Probabilities."
-     ],
-     [
-      4435.4,
-      4440.2,
+      38.09999999999991,
+      52.5,
       "T",
-      "Probabilities. Good — what else?"
+      "We already know the square, the rectangle and the triangle — we will work with the trapezium, the trapezoid and the rhombus."
      ],
      [
-      4441.1,
-      4446.3,
-      "S",
-      "Also patterns… sequences."
-     ],
-     [
-      4446.3,
-      4469.5,
+      52.5,
+      61.30000000000018,
       "T",
-      "Very good. Today we learned what a number sequence is and how it differs from a set, how to find missing terms with rules and formulas, and how to spot patterns and cycles."
-     ],
-     [
-      4470.2,
-      4477.4,
-      "T",
-      "Next class we will review everything we have learned in the course so far."
-     ],
-     [
-      4477.6,
-      4483.1,
-      "T",
-      "So get ready for an exciting adventure — Rafi and Sophie are going on an expedition with the class!"
-     ],
-     [
-      4483.5,
-      4494.9,
-      "T",
-      "That's all for today. Thanks for joining — see you!"
-     ],
-     [
-      4496.2,
-      4501.1,
-      "T",
-      "…so you can get ahead. See you next Tuesday, take care, bye!"
+      "Any questions so far?"
      ]
     ]
    },
    "teach": {
-    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
-    "start": 180.0,
-    "end": 3796.0,
+    "src": "https://d1tngwebo1bj0u.cloudfront.net/1a193165-f766-446e-a5aa-748c6f7c10fe_2026-10-28_20:59:59_1hbdiURt5.mp4",
+    "start": 20.0,
+    "end": 4000.0,
     "auto": false,
-    "title": "A full lesson: area of parallelograms",
-    "focus": "The whole flow of a lesson with cards: warm opening (~3–7 min), review (~7–11), the story and guided practice (~11–37), a harder task together (~37–47), the individual work on the platform (~53–62) and the closing. Note: there are some technical problems and a break around 47–51 min — you can skip that part.",
-    "region": "Real lesson recording · LATAM · Level 7 · spoken in Spanish",
+    "local": false,
+    "title": "A full lesson: quadrilaterals and their properties",
+    "focus": "Follow the flow: opening and review (~0–10 min), today's goals and the story (~10–12), the properties of quadrilaterals (~12–24), guided practice with equations (~24–44), the individual activity on the platform (~44–63) and the teaser of the next lesson (~64). Note: this tutor explains a lot — in your lessons, let the student talk and try more.",
+    "region": "Real lesson recording · https://d1tngwebo1bj0u.cloudfront.net/1a193165-f766-446e-a5aa-748c6f7c10fe_2026-10-28_20:59:59_1hbdiURt5.mp4 · Levels 5–7 · spoken in Spanish",
     "subs": []
    }
   }

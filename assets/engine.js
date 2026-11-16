@@ -567,7 +567,7 @@ function renderVideo(box){
 const mmss = s => { s = Math.round(s); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = String(s % 60).padStart(2, '0'); return h ? `${h}:${String(m).padStart(2, '0')}:${x}` : `${m}:${x}`; };
 function renderClip(box, K, U){
   box.innerHTML = `<div class="clip"><div class="clip-head"><span class="clip-tag">🎬 ${U.clip} ${mmss(K.start)}–${mmss(K.end)}</span><h4>${K.title}</h4></div>
-    <div class="vframe clip-v"><video preload="metadata" playsinline muted controls src="${esc(K.src)}#t=${K.start},${K.end}"></video>
+    <div class="vframe clip-v"><video preload="metadata" playsinline muted controls src="${esc((window.VIDS && window.VIDS[K.src]) || K.src)}${K.local ? '' : `#t=${K.start},${K.end}`}"></video>
       <div class="clip-sub" aria-live="polite"></div>
       <button type="button" class="clip-btn clip-sound">${U.sound}</button>
       <button type="button" class="clip-btn clip-again" hidden>${U.again}</button>
@@ -575,6 +575,7 @@ function renderClip(box, K, U){
     <div class="clip-note"><p class="clip-reg">🌎 ${K.region} · ${K.subs.length ? '💬 ' + U.subs : U.nosubs}</p><p><b>👀 ${U.focus}:</b> ${K.focus}</p></div></div>`;
   const v = $('video', box), sub = $('.clip-sub', box), snd = $('.clip-sound', box), again = $('.clip-again', box), play = $('.clip-play', box);
   let started = false;
+  v.addEventListener('error', () => { $('.clip-v', box).outerHTML = `<div class="vframe vsoon"><span>🎬</span><b>${U.unavailable}</b></div>`; });
   const toStart = () => { try { v.currentTime = K.start; } catch(e){} };
   v.addEventListener('loadedmetadata', () => { if (v.currentTime < K.start - 1 || v.currentTime > K.end) toStart(); });
   v.addEventListener('timeupdate', () => {
