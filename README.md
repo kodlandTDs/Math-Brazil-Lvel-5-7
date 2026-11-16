@@ -12,6 +12,8 @@ Three modules: **Module 1** Math at Kodland and the technical side · **Module 2
 | `assets/content-pt.js` | All Portuguese texts (modules, levels, quizzes, surveys, buttons). |
 | `assets/content-en.js` | All English texts. |
 | `assets/engine.js` | The logic: modules, level cards, checks, surveys, simulations, LMS bridge, dev mode. |
+| `shared/td-time.js` | Protection 4 (TD standard): active time per module, added to every LMS message (`time_active_min`, `time_module_min`, `time_started_at`, `time_finished_at`). |
+| `shared/td-gate.js` | Protection 5 (TD standard): the module check opens only after the tutor scrolled to the end and opened every accordion, tab, game and carousel (lesson videos are not required) (`window.TD_GATE_ITEMS` in the engine lists this training's items). Off with `?dev=1`. |
 | `assets/course.css` | Styles. |
 | `assets/img/` | Marker icons, and the pictures in `img/pt/`, `img/en/` (same names, text translated) and `img/l5/` (no text). |
 | `sims/bo/` | Backoffice simulation (course [2163], Lesson 1). Texts in `sims/bo/assets/content-pt.js` and `content-en.js`. |

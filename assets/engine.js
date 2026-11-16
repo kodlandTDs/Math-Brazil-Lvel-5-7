@@ -68,7 +68,7 @@ function mergeP(a, b){
 }
 let P = {};
 function loadP(){ P = {}; STORE.getAll(PKEY).forEach(raw => { P = mergeP(P, parse(raw) || {}); }); }
-function saveP(){ STORE.set(PKEY, JSON.stringify(P)); lmsSync(); }
+function saveP(){ STORE.set(PKEY, JSON.stringify(P)); lmsSync(); ttOnProgress(); }
 const passed = id => !!(P[id] && P[id].passed);
 function setResult(id, pct, ok){ const o = P[id] || {}; P[id] = Object.assign(o, { passed: ok || !!o.passed, score: Math.max(pct, o.score || 0) }); saveP(); }
 const flag = k => !!(P.flags && P.flags[k]);
@@ -80,6 +80,53 @@ function markLevel(n){ if (levelSeen(n)) return; P.levels = Object.assign({}, P.
 const MODS = C.modules, TOTAL = MODS.length;
 const findMod = id => MODS.find(m => m.id === id);
 const unlocked = m => { const i = MODS.indexOf(m); return P.dev || i <= 0 || passed(MODS[i - 1].id); };
+
+/* ---------- Training time → Google Sheet tab "Module time" (one row per tutor + training) ----------
+   Active time only: page visible + mouse/keyboard/scroll/touch in the last 2 minutes. Counted every 5 s
+   (max 10 s per tick) for the training and the module on screen. Kept in localStorage, so reloads and other
+   days add up. Nothing is counted or sent in developer mode or in the review file. */
+var TT = null, ttLastInput = Date.now(), ttLastTick = Date.now(), ttLastBeacon = 0, ttPassedN = -1;
+const TT_KEY = 'kl-ttime-' + TRAINING_ID;
+const ttOff = () => DEV_ALLOWED || !!P.dev;
+function ttLoad(){ TT = parse(STORE.get(TT_KEY)) || {}; TT.mods = TT.mods || {}; TT.total = Number(TT.total) || 0; ttPassedN = MODS.filter(m => passed(m.id)).length; }
+const ttSave = () => { if (TT) STORE.set(TT_KEY, JSON.stringify(TT)); };
+const ttModOnScreen = () => { const id = location.hash.replace(/^#\/?/, '').split('/')[0]; return MODS.some(m => m.id === id) ? id : null; };
+const ttMin = sec => Math.round(sec / 6) / 10;
+function ttBody(){
+  return JSON.stringify({ type:'training_time', email:(startInfo().email || ''), training:TRAINING_ID, training_name:C.title, lang:C.lang,
+    started_at:TT.started_at, finished_at:TT.finished_at || '', completed:!!TT.finished_at, active_min:ttMin(TT.total),
+    module_ids:MODS.map(m => m.id), module_min:MODS.map(m => ttMin(TT.mods[m.id] || 0)) });
+}
+function ttSend(beacon){
+  if (!TT || ttOff() || !SURVEY_URL || !TT.started_at || !startInfo().email) return;
+  const body = ttBody();
+  try {
+    if (beacon && navigator.sendBeacon && navigator.sendBeacon(SURVEY_URL, new Blob([body], { type:'text/plain;charset=utf-8' }))) return;
+    fetch(SURVEY_URL, { method:'POST', mode:'no-cors', keepalive:true, headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body }).catch(() => {});
+  } catch(e){}
+}
+function ttOnRoute(){          // the first module opened after the start survey = started_at
+  if (!TT || ttOff() || TT.started_at || !ttModOnScreen() || !startSurveyDone()) return;
+  TT.started_at = new Date().toISOString(); ttSave(); ttSend();
+}
+function ttOnProgress(){       // a module passed → send; all done (after the final survey) → finished_at, last send
+  if (!TT || ttOff() || !TT.started_at || TT.finished_at) return;
+  if (allDone()){ TT.finished_at = new Date().toISOString(); ttSave(); ttSend(); return; }
+  const n = MODS.filter(m => passed(m.id)).length;
+  if (n !== ttPassedN){ ttPassedN = n; ttSend(); }
+}
+['mousemove', 'mousedown', 'keydown', 'wheel', 'scroll', 'touchstart'].forEach(ev => addEventListener(ev, () => { ttLastInput = Date.now(); }, { passive:true, capture:true }));
+setInterval(() => {
+  const now = Date.now(), dt = Math.min(10, (now - ttLastTick) / 1000); ttLastTick = now;
+  if (!TT || ttOff() || !TT.started_at || TT.finished_at) return;
+  if (document.visibilityState !== 'visible' || now - ttLastInput > 120000) return;
+  TT.total += dt; const m = ttModOnScreen(); if (m) TT.mods[m] = (TT.mods[m] || 0) + dt; ttSave();
+}, 5000);
+addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'hidden' || !TT || ttOff() || !TT.started_at || TT.finished_at) return;
+  if (Date.now() - ttLastBeacon < 60000) return;
+  ttLastBeacon = Date.now(); ttSend(true);
+});
 const allDone = () => MODS.every(m => passed(m.id));
 
 /* ---------- Developer mode: only with ?dev=1 ---------- */
@@ -181,7 +228,7 @@ function ctaHTML(m){
     <div class="grow"><h3>${UI.ctaTitle}</h3><p>${tx('ctaText', { n: (C.quiz[m.id] || []).length })}</p>${locks.map(t => `<div class="lockmsg">${t}</div>`).join('')}</div>
     <button class="btn-y" id="startCheck" ${ready ? '' : 'disabled'}>${passed(m.id) ? UI.retake : UI.startCheck}</button>`;
 }
-const refreshCTA = m => { const c = $('#mcta'); if (c) c.innerHTML = ctaHTML(m); };
+const refreshCTA = m => { const c = $('#mcta'); if (c) c.innerHTML = ctaHTML(m); if (window.TD_GATE_REFRESH) window.TD_GATE_REFRESH(); };
 
 function moduleHead(m){
   return `<div class="mhead" style="--mc:${m.color}"><span class="eyebrow">${tx('eyebrow', { n: m.n, total: TOTAL, course: C.short })}</span>
@@ -308,7 +355,7 @@ function askGame(box, G){
   const U = G.ui, R = G.rounds; let i = 0, score = 0;
   const draw = () => {
     if (i >= R.length){
-      box.innerHTML = `<div class="gm-end"><div class="gm-big">🏆</div><p>${gtx(U.done, { score, total:R.length })}</p><button class="btn-y" type="button" data-again>${U.again}</button></div>`;
+      box.dataset.gdone = '1'; box.innerHTML = `<div class="gm-end"><div class="gm-big">🏆</div><p>${gtx(U.done, { score, total:R.length })}</p><button class="btn-y" type="button" data-again>${U.again}</button></div>`;
       $('[data-again]', box).onclick = () => { i = 0; score = 0; draw(); }; return;
     }
     const r = R[i], opts = shuffle(r.options.map((o, k) => ({ t:o[0], ok:o[1], fb:o[2], k })));
@@ -336,7 +383,7 @@ function habitGame(box, G){
   const badges = () => `<div class="hb-badges">${G.habits.map((h, k) => `<span class="${got.has(k) ? 'on' : ''}">${h[0]} ${h[1]}</span>`).join('')}</div>`;
   const draw = () => {
     if (i >= cards.length){
-      box.innerHTML = `<div class="gm-end"><div class="gm-big">⭐</div><p>${gtx(U.done, { score, total:cards.length })}</p>${badges()}<button class="btn-y" type="button" data-again>${U.again}</button></div>`;
+      box.dataset.gdone = '1'; box.innerHTML = `<div class="gm-end"><div class="gm-big">⭐</div><p>${gtx(U.done, { score, total:cards.length })}</p>${badges()}<button class="btn-y" type="button" data-again>${U.again}</button></div>`;
       $$('.hb-badges span', box).forEach(x => x.classList.add('on'));
       $('[data-again]', box).onclick = () => { i = 0; score = 0; got.clear(); draw(); }; return;
     }
@@ -382,6 +429,7 @@ function wordsGame(box, G){
       $('.wcard', box).innerHTML = `<h4>${w[0]}</h4><p>${w[1]}</p><div class="wsay"><b>${U.say}:</b> ${w[2]}</div>`;
       $('.wcount', box).textContent = gtx(U.found, { k:seen[t].size, total }) + (seen[t].size === total ? ' — ' + U.all : '');
       $(`[data-t="${t}"]`, box).classList.toggle('done', seen[t].size === total);
+      if (G.tasks.every((x, k) => seen[k].size === Object.keys(x.words).length)) box.dataset.gdone = '1';
     }; });
   };
   draw();
@@ -389,10 +437,10 @@ function wordsGame(box, G){
 
 /* ---- 4. How to explain a math idea — one big card, click through ---- */
 function explainGame(box, G){
-  const U = G.ui, K = G.cards; let i = 0;
+  const U = G.ui, K = G.cards; let i = 0; const seenC = new Set();
   box.classList.add('xp');
   const draw = () => {
-    const c = K[i];
+    const c = K[i]; seenC.add(i); if (seenC.size === K.length) box.dataset.gdone = '1';
     const pic = c.img ? `<img src="${c.img}" alt="">` : (c.svg || `<div class="xp-art">${esc(c.art || '')}</div>`);
     box.innerHTML = `<div class="xp-card"><div class="xp-pic">${pic}</div>
       <div class="xp-txt"><span class="gm-tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p>
@@ -413,7 +461,7 @@ function timelineGame(box, G){
   const U = G.ui, S = G.stops; let open = -1, reached = 0;
   box.classList.add('tl');
   const draw = () => {
-    const c = open >= 0 ? S[open] : null;
+    const c = open >= 0 ? S[open] : null; if (open === S.length - 1) box.dataset.gdone = '1';
     const pic = c ? (c.img ? `<img src="${c.img}" alt="">` : c.svg) : '';
     box.innerHTML = `<div class="tl-line" style="--n:${S.length}"><i class="tl-bar" style="--p:${S.length > 1 ? reached / (S.length - 1) : 0}"></i>
         ${S.map((s, k) => `<button type="button" class="tl-stop ${k <= reached ? 'show' : ''} ${k === open ? 'on' : ''} ${k < reached || (k === reached && open === k) ? 'seen' : ''}" data-s="${k}" ${k > reached ? 'disabled' : ''}>
@@ -435,6 +483,7 @@ function deckGame(box, G){
   const face = c => `<div class="dk-pic">${c.img ? `<img src="${c.img}" alt="">` : c.svg}</div>
     <div class="dk-txt"><span class="dk-kind ${c.kind}">${U[c.kind] || ''}</span><h3>${c.title}</h3><p>${c.text}</p></div>`;
   const draw = () => {
+    if (i === K.length - 1) box.dataset.gdone = '1';
     box.innerHTML = `<div class="dk-stack">${[2, 1].map(d => K[i + d] ? `<div class="dk-card dk-back d${d}" aria-hidden="true"></div>` : '').join('')}
         <button type="button" class="dk-card dk-top">${face(K[i])}</button></div>
       <div class="xp-nav"><span class="gm-dots">${K.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}" data-go-card="${k}"></i>`).join('')}</span>
@@ -453,7 +502,7 @@ function roleGame(box, G){
   const U = G.ui, C2 = G.cases; let i = 0, score = 0;
   const draw = () => {
     if (i >= C2.length){
-      box.innerHTML = `<div class="gm-end"><div class="gm-big">🧭</div><p>${gtx(U.done, { score, total:C2.length })}</p><button class="btn-y" type="button" data-again>${U.again}</button></div>`;
+      box.dataset.gdone = '1'; box.innerHTML = `<div class="gm-end"><div class="gm-big">🧭</div><p>${gtx(U.done, { score, total:C2.length })}</p><button class="btn-y" type="button" data-again>${U.again}</button></div>`;
       $('[data-again]', box).onclick = () => { i = 0; score = 0; draw(); }; return;
     }
     const c = C2[i];
@@ -500,7 +549,8 @@ function groupCardView(box, G){
         <div class="gc-ls">${Array.from({ length:8 }, (_, i) => `<span>L${i + 1}</span>`).join('')}</div></div></div></div>
     <div class="gc-notes">${N.map(n => `<button type="button" class="gc-note" data-n="${n.n}" style="--c:${n.c}"><span class="gc-num">${n.n}</span>
       <span><b>${n.title}</b><span>${n.text}</span>${n.warn ? `<span class="gc-warn">${n.warn}</span>` : ''}</span></button>`).join('')}</div></div>`;
-  const pick = n => { $$('[data-n]', box).forEach(x => x.classList.toggle('on', x.dataset.n === String(n))); };
+  const picked = new Set();
+  const pick = n => { picked.add(String(n)); if (picked.size >= N.length) box.dataset.gdone = '1'; $$('[data-n]', box).forEach(x => x.classList.toggle('on', x.dataset.n === String(n))); };
   $$('[data-n]', box).forEach(x => x.onclick = () => pick(x.dataset.n));
   $$('.gc-badge', box).forEach(x => x.onclick = e => { e.stopPropagation(); pick(x.parentElement.dataset.n); });
 }
@@ -511,7 +561,7 @@ function pledgeView(box, G){
   let got = flag(key) ? items.map(() => true) : items.map(() => false);
   box.classList.add('pl');
   const draw = () => {
-    const k = got.filter(Boolean).length, all = k === items.length;
+    const k = got.filter(Boolean).length, all = k === items.length; if (all) box.dataset.gdone = '1';
     box.innerHTML = `<h3>${G.title}</h3><p class="pl-sub">${G.sub}</p>
       <div class="pl-list">${items.map((t, i) => `<button type="button" class="ck pl-i ${got[i] ? 'on' : ''}" data-i="${i}" aria-pressed="${got[i]}"><span class="ckb">${got[i] ? '✓' : ''}</span><span>${t}</span></button>`).join('')}</div>
       <div class="pl-bar"><i style="width:${k / items.length * 100}%"></i></div>
@@ -524,6 +574,19 @@ function pledgeView(box, G){
   };
   draw();
 }
+
+/* ---------- Content gate (shared/td-gate.js): what has to be opened in a module before its check ----------
+   accordions, tabs, flip cards, the Follow Mode demo: opened once; games and carousels: played to the end;
+   lesson clips are NOT required (data-gate-own keeps the gate's own video rule off them). The roadmap and pictures only need the scroll. */
+window.TD_GATE_ITEMS = root => {
+  const out = [], own = (k, el, auto) => out.push({ key:k, el, show:el, auto, noClick:true });
+  $$('.acc .ah', root).forEach((el, i) => out.push({ key:'mb-a' + i, el, show:el.parentElement, auto:() => el.parentElement.classList.contains('open') }));
+  $$('.tabs .tb', root).forEach((el, i) => out.push({ key:'mb-t' + i, el, show:el, auto:() => el.classList.contains('on') }));
+  $$('.flip, .rv', root).forEach((el, i) => out.push({ key:'mb-f' + i, el, show:el, auto:() => el.classList.contains('on') }));
+  $$('[data-fm]', root).forEach((el, i) => out.push({ key:'mb-fm' + i, el, show:el }));
+  $$('.game[data-game]', root).forEach((el, i) => { if (!['roadmap'].includes(el.dataset.game)) own('mb-g-' + el.dataset.game + i, el, () => el.dataset.gdone === '1' || (el.dataset.game === 'pledge' && flag('pledge'))); });
+  return out;
+};
 
 function initWidgets(){
   $$('.cklist .ck').forEach(b => b.onclick = () => b.classList.toggle('on'));
@@ -575,11 +638,14 @@ function renderClip(box, K, U){
     <div class="clip-note"><p class="clip-reg">🌎 ${K.region} · ${K.subs.length ? '💬 ' + U.subs : U.nosubs}</p><p><b>👀 ${U.focus}:</b> ${K.focus}</p></div></div>`;
   const v = $('video', box), sub = $('.clip-sub', box), snd = $('.clip-sound', box), again = $('.clip-again', box), play = $('.clip-play', box);
   let started = false;
+  box.dataset.gateOwn = '1';
+  box.addEventListener('click', () => { box.dataset.gdone = '1'; }, true);
   v.addEventListener('error', () => { $('.clip-v', box).outerHTML = `<div class="vframe vsoon"><span>🎬</span><b>${U.unavailable}</b></div>`; });
   const toStart = () => { try { v.currentTime = K.start; } catch(e){} };
   v.addEventListener('loadedmetadata', () => { if (v.currentTime < K.start - 1 || v.currentTime > K.end) toStart(); });
   v.addEventListener('timeupdate', () => {
     const c = v.currentTime;
+    if (c >= K.start + (K.end - K.start) * .8) box.dataset.gdone = '1';
     if (c >= K.end){ v.pause(); again.hidden = false; sub.textContent = ''; return; }
     if (c < K.start - 1){ toStart(); return; }
     const cue = K.subs.find(s => c >= s[0] && c <= s[1] + .4);
@@ -826,6 +892,7 @@ const go = path => { location.hash = '#/' + path; };
 const curParts = () => location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
 function route(){
   closeModal(); QZ = null;
+  ttOnRoute();
   const [id, sub] = curParts(), m = findMod(id);
   if (!id) renderHome();
   else if (id === 'done' && allDone()) renderDone();
@@ -908,6 +975,7 @@ if (window.__carryP){ P = mergeP(P, parse(window.__carryP) || {}); window.__carr
 if (REVIEW && !P.dev){ P.dev = true; STORE.set(PKEY, JSON.stringify(P)); }
 if (P.dev && !DEV_ALLOWED){ restoreRealProgress(); STORE.set(PKEY, JSON.stringify(P)); }
 lastPassedCount = MODS.filter(m => passed(m.id)).length;
+ttLoad();
 lmsReady = true; lmsSend('ready'); lmsSync();
 devBadge();
 route();
