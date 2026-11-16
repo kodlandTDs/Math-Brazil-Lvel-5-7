@@ -244,7 +244,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') { const ov =
 const gtx = (s, o) => String(s).replace(/\{(\w+)\}/g, (m, k) => o && k in o ? o[k] : m);
 function initGame(box){
   const G = (C.games || {})[box.dataset.game]; if (!G) return;
-  (({ ask: askGame, habits: habitGame, words: wordsGame, deck: deckGame, roles: roleGame })[box.dataset.game] || (G.stops ? timelineGame : explainGame))(box, G);
+  (({ ask: askGame, habits: habitGame, words: wordsGame, deck: deckGame, roles: roleGame, roadmap: roadmapView, groupcard: groupCardView, pledge: pledgeView, rightwrong: habitGame })[box.dataset.game] || (G.stops ? timelineGame : explainGame))(box, G);
 }
 
 /* ---- 1. "What do you ask?" — 5 situations, 3 options each ---- */
@@ -472,6 +472,59 @@ function roleGame(box, G){
   draw();
 }
 
+/* ---- 8. Roadmap to the first lesson: a clear, always-visible route ---- */
+function roadmapView(box, G){
+  box.classList.add('rm');
+  const M = G.must;
+  box.innerHTML = (M ? `<div class="rm-must"><h4>${M.title}</h4><ul>${M.items.map(it => `<li><span>${it[0]}</span><span>${it[1]}</span></li>`).join('')}</ul></div>` : '') + `<ol class="rm2">${G.steps.map((st, k) => `<li class="rm2-s" style="--c:${st.color}">
+      <div class="rm2-dot"><span>${k + 1}</span></div>
+      <div class="rm2-b"><div class="rm2-when">${st.icon} ${st.when}</div><h4>${st.title}</h4>
+      <ul>${st.items.map(it => `<li><span>${it[0]}</span>${it[1]}</li>`).join('')}</ul></div></li>`).join('')}</ol>`;
+}
+
+/* ---- 9. Group card: a copy of the BO card with numbered parts ---- */
+function groupCardView(box, G){
+  const U = G.ui, K = G.card, N = G.notes;
+  box.classList.add('gc');
+  box.innerHTML = `<div class="gc-head"><h3>${U.title}</h3><p>${U.sub}</p></div>
+    <div class="gc-grid"><div class="gc-card">
+      <div class="gc-top"><div class="gc-name gc-hl" data-n="1" style="--c:${N[0].c}">${esc(K.name)}<mark>${esc(K.slot)}</mark><b class="gc-badge">1</b></div>
+        <div class="gc-course gc-hl" data-n="2" style="--c:${N[1].c}">📄 <span>${esc(K.course)}</span><b class="gc-badge">2</b></div></div>
+      <div class="gc-cols"><div>${K.fields.map(f => `<div class="gc-f"><span>${f[0]}</span><b>${f[1]}:</b> ${esc(f[2])}</div>`).join('')}</div>
+        <div>${K.right.map(f => `<div class="gc-f"><span>${f[0]}</span>${esc(f[1])}</div>`).join('')}
+          <div class="gc-f gc-hl gc-age" data-n="3" style="--c:${N[2].c}"><span>📅</span>${esc(K.age)}<b class="gc-badge">3</b></div>
+          <div class="gc-f"><span>🗓️</span>${esc(K.total)}</div></div></div>
+      <div class="gc-com gc-hl" data-n="4" style="--c:${N[3].c}"><b>${K.comments}</b><span>${K.nodesc}</span><b class="gc-badge">4</b></div>
+      <div class="gc-tabs">${K.tabs.map((t, i) => `<span class="${i ? '' : 'on'}">${t}</span>`).join('')}</div>
+      <div class="gc-list"><div class="gc-lt">${K.list}</div><div class="gc-st"><div><b>${esc(K.student)}</b><small>student@email.com</small></div>
+        <div class="gc-ls">${Array.from({ length:8 }, (_, i) => `<span>L${i + 1}</span>`).join('')}</div></div></div></div>
+    <div class="gc-notes">${N.map(n => `<button type="button" class="gc-note" data-n="${n.n}" style="--c:${n.c}"><span class="gc-num">${n.n}</span>
+      <span><b>${n.title}</b><span>${n.text}</span>${n.warn ? `<span class="gc-warn">${n.warn}</span>` : ''}</span></button>`).join('')}</div></div>`;
+  const pick = n => { $$('[data-n]', box).forEach(x => x.classList.toggle('on', x.dataset.n === String(n))); };
+  $$('[data-n]', box).forEach(x => x.onclick = () => pick(x.dataset.n));
+  $$('.gc-badge', box).forEach(x => x.onclick = e => { e.stopPropagation(); pick(x.parentElement.dataset.n); });
+}
+
+/* ---- 10. Commitment checklist: all ticked = the module check opens ---- */
+function pledgeView(box, G){
+  const items = G.items, key = 'pledge';
+  let got = flag(key) ? items.map(() => true) : items.map(() => false);
+  box.classList.add('pl');
+  const draw = () => {
+    const k = got.filter(Boolean).length, all = k === items.length;
+    box.innerHTML = `<h3>${G.title}</h3><p class="pl-sub">${G.sub}</p>
+      <div class="pl-list">${items.map((t, i) => `<button type="button" class="ck pl-i ${got[i] ? 'on' : ''}" data-i="${i}" aria-pressed="${got[i]}"><span class="ckb">${got[i] ? '✓' : ''}</span><span>${t}</span></button>`).join('')}</div>
+      <div class="pl-bar"><i style="width:${k / items.length * 100}%"></i></div>
+      <p class="pl-state ${all ? 'ok' : ''}">${all ? G.done : gtx(G.left, { k, total:items.length })}</p>`;
+    $$('.pl-i', box).forEach(b => b.onclick = () => {
+      if (flag(key)) return;
+      got[+b.dataset.i] = !got[+b.dataset.i]; draw();
+      if (got.every(Boolean)){ setFlag(key, true); confetti(80); const m = MODS.find(x => (x.needs || []).includes(key)); if (m) refreshCTA(m); draw(); }
+    });
+  };
+  draw();
+}
+
 function initWidgets(){
   $$('.cklist .ck').forEach(b => b.onclick = () => b.classList.toggle('on'));
   $$('[data-fm]').forEach(initFollowDemo);
@@ -500,6 +553,7 @@ function embedUrl(u){
   return u;
 }
 function renderVideo(box){
+  if (C.clips && C.clips.items && C.clips.items[box.dataset.video]) return renderClip(box, C.clips.items[box.dataset.video], C.clips.ui);
   const key = box.dataset.video, raw = (C.videos || {})[key], src = embedUrl(raw), note = (C.videoNotes || {})[key];
   if (src && /\.mp4($|\?)|^data:video/.test(src)){ box.innerHTML = `<div class="vframe"><video src="${esc(src)}" controls preload="none"></video></div>`; return; }
   box.innerHTML = src
@@ -507,6 +561,40 @@ function renderVideo(box){
     : note
       ? `<div class="vneed"><span class="ii">🎬</span><div><b>${UI.videoNeeded}</b><h4>${note.title}</h4><p>${note.text}</p><small>${UI.videoKey}: ${esc(key)}</small></div></div>`
       : `<div class="vframe vsoon"><span>🎬</span><b>${UI.videoLabel}</b><p>${UI.videoSoon}</p></div>`;
+}
+
+/* ---------- Real lesson clips: start/stop at fixed minutes, translated subtitles, autoplay (muted) when visible ---------- */
+const mmss = s => { s = Math.round(s); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = String(s % 60).padStart(2, '0'); return h ? `${h}:${String(m).padStart(2, '0')}:${x}` : `${m}:${x}`; };
+function renderClip(box, K, U){
+  box.innerHTML = `<div class="clip"><div class="clip-head"><span class="clip-tag">🎬 ${U.clip} ${mmss(K.start)}–${mmss(K.end)}</span><h4>${K.title}</h4></div>
+    <div class="vframe clip-v"><video preload="metadata" playsinline muted controls src="${esc(K.src)}#t=${K.start},${K.end}"></video>
+      <div class="clip-sub" aria-live="polite"></div>
+      <button type="button" class="clip-btn clip-sound">${U.sound}</button>
+      <button type="button" class="clip-btn clip-again" hidden>${U.again}</button>
+      ${K.auto ? '' : `<button type="button" class="clip-btn clip-play">${U.play}</button>`}</div>
+    <div class="clip-note"><p class="clip-reg">🌎 ${K.region} · ${K.subs.length ? '💬 ' + U.subs : U.nosubs}</p><p><b>👀 ${U.focus}:</b> ${K.focus}</p></div></div>`;
+  const v = $('video', box), sub = $('.clip-sub', box), snd = $('.clip-sound', box), again = $('.clip-again', box), play = $('.clip-play', box);
+  let started = false;
+  const toStart = () => { try { v.currentTime = K.start; } catch(e){} };
+  v.addEventListener('loadedmetadata', () => { if (v.currentTime < K.start - 1 || v.currentTime > K.end) toStart(); });
+  v.addEventListener('timeupdate', () => {
+    const c = v.currentTime;
+    if (c >= K.end){ v.pause(); again.hidden = false; sub.textContent = ''; return; }
+    if (c < K.start - 1){ toStart(); return; }
+    const cue = K.subs.find(s => c >= s[0] && c <= s[1] + .4);
+    sub.innerHTML = cue ? `<span><b>${cue[2] === 'T' ? U.tutor : U.student}:</b> ${esc(cue[3])}</span>` : '';
+  });
+  v.addEventListener('play', () => { started = true; again.hidden = true; if (play) play.hidden = true; if (v.currentTime >= K.end - .3 || v.currentTime < K.start - 1) toStart(); });
+  v.addEventListener('volumechange', () => { snd.hidden = !v.muted; });
+  snd.onclick = () => { v.muted = false; v.play().catch(() => {}); };
+  again.onclick = () => { toStart(); v.play().catch(() => {}); };
+  if (play) play.onclick = () => { v.muted = false; toStart(); v.play().catch(() => {}); };
+  if (K.auto && 'IntersectionObserver' in window){
+    new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting && e.intersectionRatio > .6){ if (!started || (v.paused && again.hidden)){ if (!started) toStart(); v.play().catch(() => {}); } }
+      else if (!v.paused) v.pause();
+    }), { threshold:[0, .6] }).observe(v);
+  }
 }
 
 /* ---------- Simulations (BO and Classroom): open inside the page, report completion with postMessage ---------- */

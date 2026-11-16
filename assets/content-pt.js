@@ -177,7 +177,7 @@ window.COURSE = {
   },
   "videoSoon": "A gravação da aula será adicionada aqui em breve.",
   "videoLabel": "Gravação de aula",
-  "lockSims": "🔒 Conclua as simulações acima para liberar a verificação do módulo: {list}.",
+  "lockSims": "🔒 Conclua estas etapas do módulo para liberar a verificação: {list}.",
   "simOpen": "▶ Abrir a simulação",
   "simClose": "✕ Fechar a simulação",
   "simNewTab": "↗ Abrir em nova aba",
@@ -282,11 +282,17 @@ window.COURSE = {
      "id": "s15",
      "title": "💻 Classroom e Follow Mode",
      "html": "<p>Todas as aulas acontecem no <strong>Classroom</strong>. Você abre os cartões da aula em <strong>Assignments</strong> e guia o aluno por eles. Acompanhe uma aula do começo ao fim: clique em uma parada da linha para ver o que fazer, e a próxima parada aparece.</p>\n<div class=\"game\" data-game=\"classroom\"></div>\n<div class=\"ctimer\"><div class=\"ctoast t15\"><span class=\"tt\">🔔 Aviso</span><b>Faltam 15 minutos</b><p>O horário da aula acabou: comece a encerrar com calma.</p></div><div class=\"ctoast t3\"><span class=\"tt\">⏳ Aviso</span><b>Faltam 3 minutos</b><span class=\"cd\">3:00</span><p>Termine a reflexão e se despeça.</p></div><div class=\"ctoast t0\"><span class=\"tt\">⏰ Aviso</span><b>O tempo acabou</b><p>Em breve o Classroom vai fechar aqui automaticamente.</p></div></div>\n<p>Agora percorra os primeiros cartões do Nível 5, Aula 1 em uma cópia do Classroom, com uma aluna que segue você:</p>\n<div class=\"simwrap\" data-sim=\"classroomSim\"></div>"
+    },
+    {
+     "id": "s16",
+     "title": "📏 As regras de ouro dos novos materiais",
+     "html": "<p>Estas regras <strong>não são opcionais</strong>. Passe pelos cartões — cada um mostra a regra e o que evitar.</p>\n<div class=\"game\" data-game=\"rules\"></div>\n<p>Último passo deste módulo: confirme o seu compromisso. A verificação do módulo abre quando todas as linhas estiverem marcadas.</p>\n<div class=\"game\" data-game=\"pledge\"></div>"
     }
    ],
    "needs": [
     "boSim",
-    "classroomSim"
+    "classroomSim",
+    "pledge"
    ]
   },
   {
@@ -326,7 +332,7 @@ window.COURSE = {
     {
      "id": "s26",
      "title": "⭐ Hábitos de uma aula de qualidade — hábito ou não?",
-     "html": "<p>Seis hábitos fazem uma aula com cartões interativos funcionar. Leia o que um tutor faz na aula e decida: <strong>um bom hábito</strong> ou <strong>algo a evitar</strong>? Cada resposta mostra a qual hábito ela pertence.</p>\n<div class=\"game\" data-game=\"habits\"></div>"
+     "html": "<p>Seis hábitos fazem uma aula com cartões interativos funcionar. Leia o que um tutor faz na aula e decida: <strong>um bom hábito</strong> ou <strong>algo a evitar</strong>? Cada resposta mostra a qual hábito ela pertence.</p>\n<div class=\"game\" data-game=\"habits\"></div>\n<div class=\"video\" data-video=\"clip-closing\"></div>"
     },
     {
      "id": "s27",
@@ -335,11 +341,16 @@ window.COURSE = {
     },
     {
      "id": "s28",
-     "title": "✅ O seu checklist da aula",
-     "html": "<div class=\"cklist\"><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Li o Slide para o tutor e as Teacher notes de todos os cartões.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Resolvi todas as tarefas eu mesmo, incluindo a atividade individual e as Perguntas de Nova Geração, e conferi o gabarito.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Sei qual é a ideia principal que o aluno precisa entender hoje e onde ele pode travar.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Testei o Follow Mode, os links e o login do aluno na plataforma.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Fiz uma pergunta de intuição antes de cada conceito novo e perguntei \"Como você pensou?\" pelo menos três vezes.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Mantive a atividade individual e o fechamento, mesmo com pouco tempo.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Depois da aula, anotei o que foi difícil para o aluno, para revisar na próxima vez.</span></button></div>\n<div class=\"callout\">\n<p>Se algo de uma aula não estiver claro para você, pergunte ao seu mentor regional de TD <strong>antes</strong> da aula.</p>\n</div>"
+     "title": "🚦 Antes da sua primeira aula — o seu roteiro",
+     "html": "<p>Uma aula bem preparada é uma aula divertida — para você e para o seu aluno. Siga este roteiro e lembre-se das três coisas <strong>obrigatórias antes de cada aula</strong>:</p>\n<div class=\"game\" data-game=\"roadmap\"></div>\n<p>A sua primeira parada é o <strong>cartão do grupo</strong> no BO. Ele mostra qual curso dar e quem é o seu aluno:</p>\n<div class=\"game\" data-game=\"groupcard\"></div>"
     },
     {
      "id": "s29",
+     "title": "✅ O seu checklist da aula",
+     "html": "<div class=\"cklist\"><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span><strong>OBRIGATÓRIO:</strong> Conferi que o código do curso dos materiais é o mesmo do grupo atribuído a mim.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span><strong>OBRIGATÓRIO:</strong> Pelo menos 30 minutos antes da aula abri os cartões, li todas as Teacher notes (e o vídeo de orientação) e resolvi todas as tarefas eu mesmo.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Sei qual é a ideia principal que o aluno precisa entender hoje e onde ele pode travar.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Testei o Follow Mode, os links e o login do aluno na plataforma.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Fiz uma pergunta de intuição antes de cada conceito novo e perguntei \"Como você pensou?\" pelo menos três vezes.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Mantive a atividade individual e o fechamento, mesmo com pouco tempo.</span></button><button class=\"ck\" type=\"button\"><span class=\"ckb\"></span><span>Depois da aula, anotei o que foi difícil para o aluno, para revisar na próxima vez.</span></button></div>\n<div class=\"callout\">\n<p>Algo não está claro? <strong>O seu mentor regional de TD está pronto para ajudar</strong> — pergunte antes da aula.</p>\n</div>"
+    },
+    {
+     "id": "s210",
      "title": "🎬 Assista a uma aula real",
      "html": "<p>Aqui fica a gravação completa de uma aula dos Níveis 5–7 no Classroom: a abertura, o Follow Mode, as perguntas de intuição, a atividade individual e o encerramento.</p>\n<div class=\"video\" data-video=\"teach\"></div>\n<div class=\"video\" data-video=\"clip-individual\"></div>"
     }
@@ -466,15 +477,15 @@ window.COURSE = {
     "e": "Os cartões avaliados devem ser feitos pelo aluno na própria cópia; senão a pontuação dele é 0."
    },
    {
-    "q": "Você quer desenhar uma reta numérica no cartão para explicar uma ideia ao aluno. O que você usa?",
+    "q": "Você quer desenhar uma reta numérica para explicar uma ideia ao aluno. O que você usa?",
     "o": [
-     "A Anotação do Classroom — desenhar e escrever direto no cartão",
-     "Uma foto do seu desenho, enviada no chat",
+     "O Whiteboard do Classroom",
+     "A ferramenta de anotação no cartão",
      "O Spoiler do cartão",
      "Um PDF compartilhado no chat"
     ],
     "a": 0,
-    "e": "A Anotação permite desenhar e escrever no cartão que o aluno vê. As Teacher notes são visíveis só para você: ajudam na preparação, mas não servem para mostrar algo ao aluno."
+    "e": "Não há ferramenta de anotação nos cartões: abra o Whiteboard do Classroom para desenhar e escrever."
    },
    {
     "q": "O horário da aula acabou e o Classroom mostra \"faltam 15 minutos\". O que vale por enquanto?",
@@ -486,6 +497,28 @@ window.COURSE = {
     ],
     "a": 1,
     "e": "Por enquanto o Classroom só mostra os avisos (15 minutos, 3 minutos com contagem regressiva, o tempo acabou). Em cerca de um mês ele vai fechar automaticamente, com até 15 minutos extras depois do fim da aula."
+   },
+   {
+    "q": "As Teacher notes dizem que um cartão é verde. Como você conduz?",
+    "o": [
+     "Junto com o aluno, passo a passo",
+     "Como trabalho individual: o aluno resolve sozinho",
+     "Você resolve na sua tela enquanto o aluno assiste",
+     "Você pula se o tempo estiver curto"
+    ],
+    "a": 1,
+    "e": "Cartões azuis = trabalho juntos; cartões verdes = trabalho individual. As Teacher notes dizem qual modo cada cartão pede."
+   },
+   {
+    "q": "O painel do professor mostra que a maioria das respostas de um cartão está errada. O que você faz?",
+    "o": [
+     "Segue em frente para manter o ritmo",
+     "Explica de novo com outro exemplo e deixa o aluno tentar outra vez",
+     "Mostra a solução completa e continua",
+     "Passa a lição de casa mais cedo"
+    ],
+    "a": 1,
+    "e": "Confira os resultados, explique de novo com outro exemplo e deixe o aluno tentar outra vez."
    }
   ],
   "m2": [
@@ -662,7 +695,8 @@ window.COURSE = {
   "teach": "",
   "clip-intuition": "",
   "clip-mistake": "",
-  "clip-individual": ""
+  "clip-individual": "",
+  "clip-closing": ""
  },
  "games": {
   "ask": {
@@ -1321,7 +1355,8 @@ window.COURSE = {
      "title": "Antes da aula",
      "svg": "<svg class=\"art\" viewBox=\"0 0 400 260\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"400\" height=\"260\" rx=\"18\" fill=\"#F3F6FF\"/><rect x=\"70\" y=\"40\" width=\"260\" height=\"160\" rx=\"10\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3.5\"/><path d=\"M40 208 h320 l-20 20 h-280Z\" fill=\"#C9D0E3\" stroke=\"#16162B\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/><rect x=\"82\" y=\"50\" width=\"74\" height=\"22\" rx=\"6\" fill=\"#FFF3B0\" stroke=\"#16162B\" stroke-width=\"2.5\"/><text x=\"119\" y=\"67\" text-anchor=\"middle\" font-size=\"13\" fill=\"#16162B\" style=\"font-family:Nunito,system-ui,sans-serif;font-weight:900\">BO</text><rect x=\"162\" y=\"50\" width=\"74\" height=\"22\" rx=\"6\" fill=\"#DFF3FF\" stroke=\"#16162B\" stroke-width=\"2.5\"/><text x=\"199\" y=\"67\" text-anchor=\"middle\" font-size=\"13\" fill=\"#16162B\" style=\"font-family:Nunito,system-ui,sans-serif;font-weight:900\">Classroom</text><rect x=\"242\" y=\"50\" width=\"74\" height=\"22\" rx=\"6\" fill=\"#FFE0EF\" stroke=\"#16162B\" stroke-width=\"2.5\"/><text x=\"279\" y=\"67\" text-anchor=\"middle\" font-size=\"13\" fill=\"#16162B\" style=\"font-family:Nunito,system-ui,sans-serif;font-weight:900\">Platform</text><rect x=\"104\" y=\"112\" width=\"40\" height=\"28\" rx=\"5\" fill=\"#16162B\"/><path d=\"M144 120 l14 -8 v28 l-14 -8Z\" fill=\"#16162B\"/><rect x=\"192\" y=\"102\" width=\"18\" height=\"34\" rx=\"9\" fill=\"#16162B\"/><path d=\"M184 124 a17 17 0 0 0 34 0 M201 141 v12 m-10 0 h20\" fill=\"none\" stroke=\"#16162B\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><path d=\"M266 146 a10 10 0 0 1 20 0\" fill=\"none\" stroke=\"#16162B\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M256 144 a20 20 0 0 1 40 0\" fill=\"none\" stroke=\"#16162B\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M246 142 a30 30 0 0 1 60 0\" fill=\"none\" stroke=\"#16162B\" stroke-width=\"4\" stroke-linecap=\"round\"/><circle cx=\"276\" cy=\"150\" r=\"5\" fill=\"#16162B\"/><circle cx=\"150\" cy=\"170\" r=\"13\" fill=\"#22B573\" stroke=\"#16162B\" stroke-width=\"2.5\"/><path d=\"M144 170 l4 5 l8 -10\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"222\" cy=\"170\" r=\"13\" fill=\"#22B573\" stroke=\"#16162B\" stroke-width=\"2.5\"/><path d=\"M216 170 l4 5 l8 -10\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"300\" cy=\"170\" r=\"13\" fill=\"#22B573\" stroke=\"#16162B\" stroke-width=\"2.5\"/><path d=\"M294 170 l4 5 l8 -10\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
      "points": [
-      "Leia o Slide para o tutor e as Teacher notes de cada cartão, e resolva as tarefas você mesmo.",
+      "Confira se os materiais são do código de curso do seu grupo.",
+      "Pelo menos 30 minutos antes: leia todas as Teacher notes e o Slide para o tutor, e resolva as tarefas você mesmo.",
       "Entre com antecedência e verifique câmera, microfone e internet.",
       "Pegue o login do aluno; envie o link mágico só por mensagem privada no chat."
      ]
@@ -1360,7 +1395,7 @@ window.COURSE = {
      "title": "Explicar",
      "svg": "<svg class=\"art\" viewBox=\"0 0 400 260\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"400\" height=\"260\" rx=\"18\" fill=\"#F3F6FF\"/><rect x=\"40\" y=\"36\" width=\"320\" height=\"190\" rx=\"12\" fill=\"#2B2D42\" stroke=\"#16162B\" stroke-width=\"3.5\"/><rect x=\"66\" y=\"58\" width=\"220\" height=\"140\" rx=\"12\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3\"/><rect x=\"106\" y=\"80\" width=\"140\" height=\"14\" rx=\"7\" fill=\"#DDE3F3\"/><rect x=\"126\" y=\"104\" width=\"100\" height=\"10\" rx=\"5\" fill=\"#E9EDF7\"/><path d=\"M80 54 h28 v44 l-14 -10 l-14 10Z\" fill=\"#22B573\" stroke=\"#16162B\" stroke-width=\"3\" stroke-linejoin=\"round\"/><path d=\"M110 150 q30 -40 60 0 t60 0\" fill=\"none\" stroke=\"#F03D9E\" stroke-width=\"5\" stroke-linecap=\"round\"/><circle cx=\"236\" cy=\"160\" r=\"22\" fill=\"none\" stroke=\"#F03D9E\" stroke-width=\"5\"/><g transform=\"translate(300 90)\"><circle r=\"26\" fill=\"#C4F046\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M-12 -6 h8 l10 -9 v30 l-10 -9 h-8Z\" fill=\"#16162B\"/><path d=\"M10 -8 q8 8 0 16\" fill=\"none\" stroke=\"#16162B\" stroke-width=\"3\" stroke-linecap=\"round\"/></g><g transform=\"translate(300 170) rotate(30)\"><rect x=\"-6\" y=\"-30\" width=\"12\" height=\"50\" rx=\"3\" fill=\"#F03D9E\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M-6 20 l6 14 l6 -14Z\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3\" stroke-linejoin=\"round\"/></g></svg>",
      "points": [
-      "Desenhe e escreva direto no cartão com a Anotação.",
+      "Não há ferramenta de anotação no cartão: abra o Whiteboard do Classroom para desenhar e escrever.",
       "Nas atividades em que o aluno envia texto, link ou arquivo, confira se ele clicou em Enviar."
      ]
     },
@@ -1526,18 +1561,18 @@ window.COURSE = {
    },
    "cards": [
     {
-     "tag": "📚 Courses",
+     "tag": "🏷️ Código do curso",
      "img": "assets/img/pt/bo-courses.jpg",
-     "title": "O conteúdo das aulas fica em Courses",
-     "text": "Abra o curso pelo código, por exemplo [2163] Aventuras Matemáticas Nível 5. Nunca procure o conteúdo da aula pela sua agenda.",
-     "say": "Courses = conteúdo; Groups = agenda."
+     "title": "Confira o código do curso do seu grupo",
+     "text": "Abra o seu grupo no BO e veja o código do curso, por exemplo [2163] Aventuras Matemáticas Nível 5. Depois abra exatamente esse curso em Courses para encontrar os materiais da aula.",
+     "say": "⚠️ Obrigatório: os materiais que você dá precisam ser do código de curso do grupo atribuído a você — nunca de outro curso, mesmo que pareça igual."
     },
     {
      "tag": "📚 Courses",
      "img": "assets/img/pt/bo-record.jpg",
      "title": "O cadastro do curso",
      "text": "Confira a filial, o idioma, o número de aulas e de módulos. A aba Lessons lista todas as aulas do curso.",
-     "say": "O código do curso é o mesmo que aparece neste treinamento."
+     "say": "O código do curso precisa ser o mesmo do grupo atribuído a você."
     },
     {
      "tag": "🗂️ Assignments",
@@ -1551,14 +1586,14 @@ window.COURSE = {
      "img": "assets/img/pt/bo-homework.jpg",
      "title": "Lição de casa e study guides",
      "text": "A lição de casa é um cartão separado em Homework assignments. Study guides fica vazio de propósito: não há link da Wiki — o guia do tutor fica dentro dos cartões.",
-     "say": "Na aula, só mostre onde está a lição de casa."
+     "say": "Na aula, só mostre onde está a lição de casa. ⚠️ Obrigatório e importante: sempre confira, leia e entenda as Teacher notes."
     },
     {
      "tag": "🗒️ Teacher notes",
      "img": "assets/img/pt/bo-notes.jpg",
      "title": "Teacher notes e o Slide para o tutor",
      "text": "Todo cartão tem Teacher notes (duração, objetivo do cartão, o que fazer, pontos de atenção). O primeiro cartão traz o Slide para o tutor: história, objetivos, tempos, método, vídeo guia e gabarito.",
-     "say": "Leia tudo antes da aula."
+     "say": "⚠️ Obrigatório: leia e entenda tudo antes de cada aula."
     },
     {
      "tag": "👁️ Preview",
@@ -1582,6 +1617,747 @@ window.COURSE = {
      "say": "Envie o link mágico só por mensagem privada no chat, nunca para outra pessoa."
     }
    ]
+  },
+  "roadmap": {
+   "title": "O seu roteiro até a primeira aula",
+   "steps": [
+    {
+     "icon": "📅",
+     "when": "1 dia antes do curso",
+     "title": "Prepare-se",
+     "color": "#4D7CFE",
+     "items": [
+      [
+       "🗂️",
+       "Cartão do grupo no BO: código do curso, idade, comentários"
+      ],
+      [
+       "🎬",
+       "Cartões, Teacher notes e o vídeo de orientação no primeiro cartão"
+      ]
+     ]
+    },
+    {
+     "icon": "⏰",
+     "when": "30 minutos antes",
+     "title": "Fique pronto",
+     "color": "#F59E0B",
+     "items": [
+      [
+       "✍️",
+       "Leia as Teacher notes e resolva as tarefas"
+      ],
+      [
+       "🎥",
+       "Classroom: câmera, microfone, internet, login do aluno"
+      ]
+     ]
+    },
+    {
+     "icon": "🎬",
+     "when": "Durante a aula",
+     "title": "Siga o plano",
+     "color": "#22B573",
+     "items": [
+      [
+       "📖",
+       "Comece pela história, não pela regra"
+      ],
+      [
+       "🧭",
+       "Follow mode; cada cartão no seu modo"
+      ]
+     ]
+    },
+    {
+     "icon": "🏁",
+     "when": "No final",
+     "title": "Feche bem",
+     "color": "#F03D9E",
+     "items": [
+      [
+       "🧠",
+       "Atividade individual, questões de nova geração, verificação do resultado"
+      ],
+      [
+       "🎁",
+       "Um gostinho da próxima aula — para o aluno querer voltar"
+      ]
+     ]
+    }
+   ],
+   "must": {
+    "title": "⚠️ Obrigatório antes de cada aula",
+    "items": [
+     [
+      "🏷️",
+      "Confira se o <b>código do curso</b> dos materiais é o mesmo do <b>grupo atribuído a você</b>."
+     ],
+     [
+      "📚",
+      "Pelo menos <b>30 minutos antes</b> da aula: abra os cartões, leia todas as Teacher notes e resolva as tarefas você mesmo."
+     ],
+     [
+      "🙋",
+      "Algo não está claro? <b>O seu mentor de TD está pronto para ajudar</b> — pergunte antes da aula."
+     ]
+    ]
+   }
+  },
+  "groupcard": {
+   "ui": {
+    "title": "Como ler o cartão do grupo",
+    "sub": "Confira estas 4 coisas antes da primeira aula com um grupo novo. Toque nos números."
+   },
+   "card": {
+    "name": "BR_ind_215_",
+    "slot": "FRI-15",
+    "course": "[2163]Aventuras Matemáticas Nível 5 PL[2026][9-11][60 min][40 L][Brazil][in progress]",
+    "age": "9-11 years",
+    "total": "0/40",
+    "student": "Lucas",
+    "fields": [
+     [
+      "👤",
+      "Tutor",
+      "Seu nome"
+     ],
+     [
+      "🛠️",
+      "Tech Support",
+      "–"
+     ],
+     [
+      "🏢",
+      "Business Branch",
+      "Brazil"
+     ],
+     [
+      "🔻",
+      "AMO Funnel",
+      "Brazil Pipeline"
+     ],
+     [
+      "🌐",
+      "Language",
+      "Portuguese"
+     ],
+     [
+      "🕒",
+      "Timezone",
+      "America/Sao_Paulo"
+     ]
+    ],
+    "right": [
+     [
+      "🏷️",
+      "[19] Individual group | short"
+     ],
+     [
+      "👥",
+      "1 students"
+     ],
+     [
+      "⏱️",
+      "60 minutes"
+     ]
+    ],
+    "tabs": [
+     "Students",
+     "Schedule",
+     "Check"
+    ],
+    "list": "List of students",
+    "comments": "Comments",
+    "nodesc": "No description"
+   },
+   "notes": [
+    {
+     "n": 1,
+     "c": "#2563EB",
+     "title": "Nome do grupo",
+     "text": "O código do grupo. A última parte mostra o dia e o horário de início: FRI-15 = sexta-feira, 15:00."
+    },
+    {
+     "n": 2,
+     "c": "#DC2626",
+     "title": "Material do curso",
+     "text": "O curso exato que você deve dar neste grupo.",
+     "warn": "<b>Use SÓ este código de curso.</b> Nunca use materiais de outro curso, mesmo que pareça igual."
+    },
+    {
+     "n": 3,
+     "c": "#16A34A",
+     "title": "Faixa etária",
+     "text": "A idade dos seus alunos. Adapte a linguagem, o ritmo e os exemplos a essa idade."
+    },
+    {
+     "n": 4,
+     "c": "#7C3AED",
+     "title": "Comentários",
+     "text": "Recados do TL ou do time de CS sobre os alunos deste grupo. <b>Leia antes da aula.</b>"
+    }
+   ]
+  },
+  "rules": {
+   "ui": {
+    "prev": "← Voltar",
+    "next": "Próximo →",
+    "of": "Regra {n} / {total}",
+    "try": "⚠️ Evite isto",
+    "again": "↺ Começar de novo"
+   },
+   "cards": [
+    {
+     "tag": "1 · Preparação",
+     "img": "assets/img/pt/bo-notes.jpg",
+     "title": "Prepare-se pelo menos 1 dia antes",
+     "text": "Estude os materiais no BO antes de o curso começar: todos os cartões, as Teacher notes e o vídeo de orientação no primeiro cartão. O plano da aula precisa estar 100% claro para você. A Wiki não é mais usada.",
+     "say": "Abrir os cartões pela primeira vez durante a aula."
+    },
+    {
+     "tag": "2 · Abertura",
+     "img": "assets/img/l5/intuition.jpg",
+     "title": "Abra com a história e os mascotes",
+     "text": "Comece toda aula por um problema real da história de Rafi e Sophie — não pela regra.",
+     "say": "Começar pela definição e pular a história."
+    },
+    {
+     "tag": "3 · Modos dos cartões",
+     "svg": "<svg class=\"art\" viewBox=\"0 0 400 260\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"400\" height=\"260\" rx=\"18\" fill=\"#F3F6FF\"/><rect x=\"30\" y=\"40\" width=\"160\" height=\"120\" rx=\"12\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3.5\"/><rect x=\"30\" y=\"40\" width=\"160\" height=\"26\" rx=\"12\" fill=\"#0EA5E9\" stroke=\"#16162B\" stroke-width=\"3.5\"/><rect x=\"46\" y=\"82\" width=\"128\" height=\"10\" rx=\"5\" fill=\"#E3E7F2\"/><rect x=\"46\" y=\"104\" width=\"108\" height=\"10\" rx=\"5\" fill=\"#E3E7F2\"/><rect x=\"46\" y=\"126\" width=\"88\" height=\"10\" rx=\"5\" fill=\"#E3E7F2\"/><rect x=\"210\" y=\"40\" width=\"160\" height=\"120\" rx=\"12\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3.5\"/><rect x=\"210\" y=\"40\" width=\"160\" height=\"26\" rx=\"12\" fill=\"#22B573\" stroke=\"#16162B\" stroke-width=\"3.5\"/><rect x=\"226\" y=\"82\" width=\"128\" height=\"10\" rx=\"5\" fill=\"#E3E7F2\"/><rect x=\"226\" y=\"104\" width=\"108\" height=\"10\" rx=\"5\" fill=\"#E3E7F2\"/><rect x=\"226\" y=\"126\" width=\"88\" height=\"10\" rx=\"5\" fill=\"#E3E7F2\"/><circle cx=\"80\" cy=\"210\" r=\"22\" fill=\"#FFE0C2\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M58 204 q22 -31 44 0\" fill=\"#6B3E26\"/><circle cx=\"70\" cy=\"210\" r=\"4\" fill=\"#16162B\"/><circle cx=\"90\" cy=\"210\" r=\"4\" fill=\"#16162B\"/><path d=\"M70 220 q10 9 20 0\" fill=\"none\" stroke=\"#16162B\" stroke-width=\"3\" stroke-linecap=\"round\"/><circle cx=\"130\" cy=\"210\" r=\"22\" fill=\"#FFE0C2\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M108 204 q22 -31 44 0\" fill=\"#C2410C\"/><circle cx=\"120\" cy=\"210\" r=\"4\" fill=\"#16162B\"/><circle cx=\"140\" cy=\"210\" r=\"4\" fill=\"#16162B\"/><path d=\"M120 220 q10 9 20 0\" fill=\"none\" stroke=\"#16162B\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M98 206 h14\" stroke=\"#16162B\" stroke-width=\"3\"/><circle cx=\"290\" cy=\"210\" r=\"22\" fill=\"#FFE0C2\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M268 204 q22 -31 44 0\" fill=\"#C2410C\"/><circle cx=\"280\" cy=\"210\" r=\"4\" fill=\"#16162B\"/><circle cx=\"300\" cy=\"210\" r=\"4\" fill=\"#16162B\"/><path d=\"M280 220 q10 9 20 0\" fill=\"none\" stroke=\"#16162B\" stroke-width=\"3\" stroke-linecap=\"round\"/><g transform=\"translate(330 200)\"><rect x=\"-14\" y=\"-10\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#2B2D42\"/><path d=\"M-18 10 h36\" stroke=\"#16162B\" stroke-width=\"4\" stroke-linecap=\"round\"/></g></svg>",
+     "title": "Cartões azuis e verdes são dois jeitos de trabalhar",
+     "text": "Cartões azuis = trabalho juntos (modo grupo). Cartões verdes = trabalho individual. Confira nas Teacher notes qual modo cada cartão pede e conduza assim.",
+     "say": "Resolver juntos os cartões individuais — o aluno nunca pratica sozinho."
+    },
+    {
+     "tag": "4 · Resultados",
+     "svg": "<svg class=\"art\" viewBox=\"0 0 400 260\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"400\" height=\"260\" rx=\"18\" fill=\"#F3F6FF\"/><circle cx=\"150\" cy=\"130\" r=\"90\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3\"/><circle cx=\"150\" cy=\"130\" r=\"66\" fill=\"#E8492E\" stroke=\"#16162B\" stroke-width=\"3\"/><circle cx=\"150\" cy=\"130\" r=\"42\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3\"/><circle cx=\"150\" cy=\"130\" r=\"18\" fill=\"#E8492E\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M150 130 L300 50\" stroke=\"#16162B\" stroke-width=\"5\"/><path d=\"M300 50 l26 -8 l-8 22 M300 50 l10 -22 l12 16\" fill=\"#C4F046\" stroke=\"#16162B\" stroke-width=\"3\" stroke-linejoin=\"round\"/><g transform=\"translate(320 180)\"><path d=\"M0 -30 L9 -10 L30 -10 L13 3 L19 24 L0 12 L-19 24 L-13 3 L-30 -10 L-9 -10Z\" fill=\"#FFC93C\" stroke=\"#16162B\" stroke-width=\"3\" stroke-linejoin=\"round\"/></g></svg>",
+     "title": "Foque nos resultados de aprendizagem",
+     "text": "Em Matemática não há projetos. Tudo leva aos resultados de aprendizagem da aula e à verificação do resultado no final.",
+     "say": "Gastar o tempo com extras e pular a verificação final."
+    },
+    {
+     "tag": "5 · Follow mode",
+     "svg": "<svg class=\"art\" viewBox=\"0 0 400 260\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"400\" height=\"260\" rx=\"18\" fill=\"#F3F6FF\"/><rect x=\"30\" y=\"50\" width=\"150\" height=\"110\" rx=\"10\" fill=\"#2B2D42\" stroke=\"#16162B\" stroke-width=\"3\"/><rect x=\"42\" y=\"62\" width=\"126\" height=\"86\" rx=\"6\" fill=\"#fff\"/><rect x=\"54\" y=\"74\" width=\"100\" height=\"10\" rx=\"5\" fill=\"#DDE3F3\"/><path d=\"M60 130 L140 130\" stroke=\"#0EA5E9\" stroke-width=\"5\"/><path d=\"M85 160 h40 l8 20 h-56Z\" fill=\"#C9D0E3\" stroke=\"#16162B\" stroke-width=\"3\"/><rect x=\"220\" y=\"50\" width=\"150\" height=\"110\" rx=\"10\" fill=\"#2B2D42\" stroke=\"#16162B\" stroke-width=\"3\"/><rect x=\"232\" y=\"62\" width=\"126\" height=\"86\" rx=\"6\" fill=\"#fff\"/><rect x=\"244\" y=\"74\" width=\"100\" height=\"10\" rx=\"5\" fill=\"#DDE3F3\"/><path d=\"M250 130 L330 130\" stroke=\"#0EA5E9\" stroke-width=\"5\"/><path d=\"M275 160 h40 l8 20 h-56Z\" fill=\"#C9D0E3\" stroke=\"#16162B\" stroke-width=\"3\"/><rect x=\"56\" y=\"96\" width=\"44\" height=\"20\" rx=\"4\" fill=\"#FFD66B\" stroke=\"#16162B\" stroke-width=\"2\"/><path d=\"M186 105 L214 105\" stroke=\"#C4F046\" stroke-width=\"6\" stroke-linecap=\"round\"/><path d=\"M214 105 L201.4 111.1 L201.4 98.9Z\" fill=\"#C4F046\"/><circle cx=\"105\" cy=\"215\" r=\"20\" fill=\"#FFE0C2\" stroke=\"#16162B\" stroke-width=\"3\"/><circle cx=\"295\" cy=\"215\" r=\"20\" fill=\"#FFE0C2\" stroke=\"#16162B\" stroke-width=\"3\"/></svg>",
+     "title": "Apresente sempre em Follow mode",
+     "text": "Use o Lead the group: o aluno acompanha o cartão que você abre. Nunca apresente compartilhando a tela.",
+     "say": "Compartilhar a tela — o aluno não consegue responder na própria cópia."
+    },
+    {
+     "tag": "6 · Cartões com pontuação",
+     "svg": "<svg class=\"art\" viewBox=\"0 0 400 260\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"400\" height=\"260\" rx=\"18\" fill=\"#F3F6FF\"/><rect x=\"70\" y=\"40\" width=\"200\" height=\"180\" rx=\"12\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3.5\"/><rect x=\"90\" y=\"70\" width=\"120\" height=\"28\" rx=\"6\" fill=\"#EEF1FA\" stroke=\"#16162B\" stroke-width=\"2\"/><circle cx=\"240\" cy=\"84\" r=\"13\" fill=\"#22B573\" stroke=\"#16162B\" stroke-width=\"2.5\"/><path d=\"M234 84 l4 5 l8 -10\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"90\" y=\"114\" width=\"120\" height=\"28\" rx=\"6\" fill=\"#EEF1FA\" stroke=\"#16162B\" stroke-width=\"2\"/><circle cx=\"240\" cy=\"128\" r=\"13\" fill=\"#22B573\" stroke=\"#16162B\" stroke-width=\"2.5\"/><path d=\"M234 128 l4 5 l8 -10\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"90\" y=\"158\" width=\"120\" height=\"28\" rx=\"6\" fill=\"#EEF1FA\" stroke=\"#16162B\" stroke-width=\"2\"/><circle cx=\"240\" cy=\"172\" r=\"13\" fill=\"#ccc\" stroke=\"#16162B\" stroke-width=\"2.5\"/><path d=\"M234 172 l4 5 l8 -10\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g transform=\"translate(320 90)\"><path d=\"M0 -40 L11 -13 L40 -13 L17 5 L26 34 L0 17 L-26 34 L-17 5 L-40 -13 L-11 -13Z\" fill=\"#FFC93C\" stroke=\"#16162B\" stroke-width=\"3\" stroke-linejoin=\"round\"/></g><text x=\"320\" y=\"180\" text-anchor=\"middle\" font-size=\"30\" fill=\"#16162B\" style=\"font-family:Nunito,system-ui,sans-serif;font-weight:900\">2/3</text></svg>",
+     "title": "O aluno resolve cada cartão com pontuação",
+     "text": "Todo cartão com pontuação precisa ser resolvido pelo aluno na plataforma. Um cartão resolvido só na sua tela vale zero.",
+     "say": "Resolver cartões com pontuação na sua tela — a pontuação do aluno fica 0."
+    },
+    {
+     "tag": "7 · Resultados",
+     "svg": "<svg class=\"art\" viewBox=\"0 0 400 260\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"400\" height=\"260\" rx=\"18\" fill=\"#F3F6FF\"/><rect x=\"30\" y=\"30\" width=\"340\" height=\"200\" rx=\"12\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3.5\"/><rect x=\"30\" y=\"30\" width=\"340\" height=\"34\" rx=\"12\" fill=\"#EEF1FA\" stroke=\"#16162B\" stroke-width=\"3.5\"/><rect x=\"60\" y=\"40\" width=\"40\" height=\"14\" rx=\"7\" fill=\"#C9D0E3\"/><rect x=\"120\" y=\"40\" width=\"40\" height=\"14\" rx=\"7\" fill=\"#C9D0E3\"/><rect x=\"180\" y=\"40\" width=\"40\" height=\"14\" rx=\"7\" fill=\"#C9D0E3\"/><rect x=\"240\" y=\"40\" width=\"40\" height=\"14\" rx=\"7\" fill=\"#C9D0E3\"/><rect x=\"300\" y=\"40\" width=\"40\" height=\"14\" rx=\"7\" fill=\"#C9D0E3\"/><rect x=\"56\" y=\"94\" width=\"40\" height=\"120\" rx=\"4\" fill=\"#22B573\" stroke=\"#16162B\" stroke-width=\"2.5\"/><rect x=\"116\" y=\"114\" width=\"40\" height=\"100\" rx=\"4\" fill=\"#22B573\" stroke=\"#16162B\" stroke-width=\"2.5\"/><rect x=\"176\" y=\"174\" width=\"40\" height=\"40\" rx=\"4\" fill=\"#E8492E\" stroke=\"#16162B\" stroke-width=\"2.5\"/><rect x=\"236\" y=\"84\" width=\"40\" height=\"130\" rx=\"4\" fill=\"#22B573\" stroke=\"#16162B\" stroke-width=\"2.5\"/><rect x=\"296\" y=\"184\" width=\"40\" height=\"30\" rx=\"4\" fill=\"#E8492E\" stroke=\"#16162B\" stroke-width=\"2.5\"/><circle cx=\"196\" cy=\"140\" r=\"26\" fill=\"none\" stroke=\"#FF8A3D\" stroke-width=\"5\"/><circle cx=\"316\" cy=\"150\" r=\"26\" fill=\"none\" stroke=\"#FF8A3D\" stroke-width=\"5\"/><path d=\"M196 112 v-20 m120 30 v-30\" stroke=\"#FF8A3D\" stroke-width=\"4\"/></svg>",
+     "title": "Confira os resultados no painel do professor",
+     "text": "Se muitas respostas estiverem erradas, explique de novo com outro exemplo e deixe o aluno tentar outra vez.",
+     "say": "Seguir em frente com a maioria das respostas erradas."
+    },
+    {
+     "tag": "8 · Dicas",
+     "svg": "<svg class=\"art\" viewBox=\"0 0 400 260\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"400\" height=\"260\" rx=\"18\" fill=\"#F3F6FF\"/><rect x=\"60\" y=\"40\" width=\"280\" height=\"180\" rx=\"14\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3.5\"/><text x=\"200\" y=\"90\" text-anchor=\"middle\" font-size=\"28\" fill=\"#16162B\" style=\"font-family:Nunito,system-ui,sans-serif;font-weight:900\">4 + ? = 10</text><rect x=\"100\" y=\"120\" width=\"200\" height=\"60\" rx=\"10\" fill=\"#C9CFE0\"/><circle cx=\"120\" cy=\"140\" r=\"7\" fill=\"#AEB6CC\"/><circle cx=\"140\" cy=\"158\" r=\"7\" fill=\"#AEB6CC\"/><circle cx=\"160\" cy=\"140\" r=\"7\" fill=\"#AEB6CC\"/><circle cx=\"180\" cy=\"158\" r=\"7\" fill=\"#AEB6CC\"/><circle cx=\"200\" cy=\"140\" r=\"7\" fill=\"#AEB6CC\"/><circle cx=\"220\" cy=\"158\" r=\"7\" fill=\"#AEB6CC\"/><circle cx=\"240\" cy=\"140\" r=\"7\" fill=\"#AEB6CC\"/><circle cx=\"260\" cy=\"158\" r=\"7\" fill=\"#AEB6CC\"/><circle cx=\"280\" cy=\"140\" r=\"7\" fill=\"#AEB6CC\"/><path d=\"M180 150 q20 -20 40 0 q-20 20 -40 0Z\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3\"/><circle cx=\"200\" cy=\"150\" r=\"6\" fill=\"#16162B\"/><g transform=\"translate(320 200)\"><circle r=\"24\" fill=\"#FFD66B\" stroke=\"#16162B\" stroke-width=\"3\"/><text x=\"0\" y=\"10\" text-anchor=\"middle\" font-size=\"26\" fill=\"#16162B\" style=\"font-family:Nunito,system-ui,sans-serif;font-weight:900\">?</text></g></svg>",
+     "title": "Dicas são perguntas que orientam",
+     "text": "Dê dicas com perguntas orientadoras. Mostre a solução completa só depois que o aluno tentar.",
+     "say": "Mostrar a solução antes de o aluno tentar."
+    },
+    {
+     "tag": "9 · Nunca pule",
+     "svg": "<svg class=\"art\" viewBox=\"0 0 400 260\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"400\" height=\"260\" rx=\"18\" fill=\"#F3F6FF\"/><rect x=\"80\" y=\"30\" width=\"200\" height=\"200\" rx=\"10\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3.5\"/><path d=\"M80 30 v200\" stroke=\"#E8492E\" stroke-width=\"3\"/><text x=\"110\" y=\"80\" text-anchor=\"start\" font-size=\"22\" fill=\"#999\" style=\"font-family:Nunito,system-ui,sans-serif;font-weight:900\">12 × 3 = 26</text><path d=\"M106 72 h150\" stroke=\"#E8492E\" stroke-width=\"3.5\"/><text x=\"110\" y=\"120\" text-anchor=\"start\" font-size=\"22\" fill=\"#16162B\" style=\"font-family:Nunito,system-ui,sans-serif;font-weight:900\">10 × 3 = 30</text><text x=\"110\" y=\"156\" text-anchor=\"start\" font-size=\"22\" fill=\"#16162B\" style=\"font-family:Nunito,system-ui,sans-serif;font-weight:900\">2 × 3 = 6</text><text x=\"110\" y=\"196\" text-anchor=\"start\" font-size=\"26\" fill=\"#22B573\" style=\"font-family:Nunito,system-ui,sans-serif;font-weight:900\">= 36</text><circle cx=\"300\" cy=\"190\" r=\"13\" fill=\"#22B573\" stroke=\"#16162B\" stroke-width=\"2.5\"/><path d=\"M294 190 l4 5 l8 -10\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g transform=\"translate(320 70) rotate(30)\"><rect x=\"-7\" y=\"-36\" width=\"14\" height=\"60\" rx=\"3\" fill=\"#FFD66B\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M-7 24 l7 14 l7 -14Z\" fill=\"#F3D2A2\" stroke=\"#16162B\" stroke-width=\"3\" stroke-linejoin=\"round\"/></g></svg>",
+     "title": "Atividade individual e questões de nova geração ficam",
+     "text": "Nunca pule a atividade individual e as questões de nova geração. Corrija as respostas abertas à mão antes da próxima aula (são poucas).",
+     "say": "Pular as perguntas de \"por quê\" para ganhar tempo."
+    },
+    {
+     "tag": "10 · Whiteboard",
+     "svg": "<svg class=\"art\" viewBox=\"0 0 400 260\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"400\" height=\"260\" rx=\"18\" fill=\"#F3F6FF\"/><rect x=\"50\" y=\"30\" width=\"300\" height=\"170\" rx=\"10\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"5\"/><path d=\"M120 200 l-20 44 M280 200 l20 44\" stroke=\"#16162B\" stroke-width=\"5\" stroke-linecap=\"round\"/><path d=\"M80 150 h220\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M90 142 v16\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M130 142 v16\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M170 142 v16\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M210 142 v16\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M250 142 v16\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M290 142 v16\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M130 150 q40 -60 80 0\" fill=\"none\" stroke=\"#0EA5E9\" stroke-width=\"4\" stroke-dasharray=\"7 6\"/><text x=\"170\" y=\"92\" text-anchor=\"middle\" font-size=\"26\" fill=\"#0EA5E9\" style=\"font-family:Nunito,system-ui,sans-serif;font-weight:900\">+4</text><g transform=\"translate(320 70) rotate(35)\"><rect x=\"-9\" y=\"-34\" width=\"18\" height=\"56\" rx=\"4\" fill=\"#F03D9E\" stroke=\"#16162B\" stroke-width=\"3\"/><path d=\"M-9 22 l9 14 l9 -14Z\" fill=\"#fff\" stroke=\"#16162B\" stroke-width=\"3\" stroke-linejoin=\"round\"/></g></svg>",
+     "title": "Não há ferramenta de anotação",
+     "text": "Para desenhar ou explicar algo, use o Whiteboard do Classroom.",
+     "say": "Procurar uma caneta de anotação no cartão e perder tempo."
+    }
+   ]
+  },
+  "rightwrong": {
+   "ui": {
+    "good": "✅ Certo",
+    "bad": "❌ Errado",
+    "next": "Próximo →",
+    "right": "✅ Isso mesmo!",
+    "wrong": "❌ Não exatamente.",
+    "progress": "{n} de {total}",
+    "done": "Você julgou {score} de {total} situações corretamente. Estas são as regras por trás delas:",
+    "again": "↺ Jogar de novo",
+    "habit": "Regra"
+   },
+   "habits": [
+    [
+     "📅",
+     "Prepare-se 1 dia antes"
+    ],
+    [
+     "📖",
+     "História primeiro"
+    ],
+    [
+     "🔵",
+     "Modos azul / verde"
+    ],
+    [
+     "🧭",
+     "Follow mode"
+    ],
+    [
+     "✅",
+     "Aluno resolve os cartões com pontuação"
+    ],
+    [
+     "📊",
+     "Painel do professor"
+    ],
+    [
+     "💡",
+     "Dicas como perguntas"
+    ],
+    [
+     "🖍️",
+     "Whiteboard"
+    ]
+   ],
+   "cards": [
+    [
+     "O tutor abre os cartões da aula pela primeira vez 5 minutos antes da aula.",
+     false,
+     0,
+     "Estude os cartões, as Teacher notes e o vídeo de orientação pelo menos 1 dia antes."
+    ],
+    [
+     "O tutor começa com a pergunta do Rafi sobre o pátio da escola, antes de qualquer definição.",
+     true,
+     1,
+     "Primeiro um problema real da história, depois a regra."
+    ],
+    [
+     "Em um cartão verde, o tutor espera enquanto o aluno trabalha sozinho.",
+     true,
+     2,
+     "Verde = trabalho individual. Azul = trabalho juntos."
+    ],
+    [
+     "O tutor compartilha a tela para mostrar os cartões mais rápido.",
+     false,
+     3,
+     "Apresente sempre com o Lead the group (Follow mode), nunca compartilhando a tela."
+    ],
+    [
+     "Para ganhar tempo, o tutor resolve o cartão com pontuação na própria tela.",
+     false,
+     4,
+     "Um cartão resolvido só na sua tela vale zero para o aluno."
+    ],
+    [
+     "O painel do professor mostra muitas respostas erradas; o tutor explica de novo com outro exemplo e deixa o aluno tentar outra vez.",
+     true,
+     5,
+     "É exatamente para isso que servem os resultados."
+    ],
+    [
+     "O aluno travou, então o tutor abre a solução completa na hora.",
+     false,
+     6,
+     "Primeiro uma pergunta orientadora; a solução completa só depois que o aluno tentar."
+    ],
+    [
+     "O tutor desenha a reta numérica no Whiteboard.",
+     true,
+     7,
+     "Não há ferramenta de anotação — o Whiteboard é o lugar certo."
+    ]
+   ]
+  },
+  "pledge": {
+   "title": "✍️ O meu compromisso",
+   "sub": "Marque todas as linhas. A verificação do módulo abre quando todas estiverem marcadas.",
+   "done": "🎉 Pronto! A verificação do módulo está aberta.",
+   "left": "{k} de {total} marcadas",
+   "items": [
+    "Antes de cada aula confiro se o código do curso dos materiais é o mesmo do grupo atribuído a mim.",
+    "Pelo menos 30 minutos antes de cada aula abro os cartões, leio todas as Teacher notes e resolvo as tarefas.",
+    "Sigo as Teacher notes: história primeiro, cada cartão no seu modo, Follow mode, sem pular etapas.",
+    "Quando algo não está claro, pergunto ao meu mentor de TD antes da aula."
+   ]
+  }
+ },
+ "clips": {
+  "ui": {
+   "sound": "🔊 Ativar o som",
+   "again": "↺ Ver de novo",
+   "region": "Gravação de aula real · LATAM · {lvl} · falada em espanhol",
+   "subs": "Legendas traduzidas para o português",
+   "nosubs": "Sem legendas: observe o fluxo da aula",
+   "focus": "Foque em",
+   "clip": "Trecho",
+   "tutor": "Tutor",
+   "student": "Aluna",
+   "play": "▶ Assistir ao trecho"
+  },
+  "items": {
+   "clip-intuition": {
+    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
+    "start": 1370.0,
+    "end": 1564.0,
+    "auto": true,
+    "title": "De um objeto real à definição: paralelogramos",
+    "focus": "A tutora começa por algo real (uma baklava) e pergunta \"que formas os pedaços fazem?\" antes de dar qualquer definição. Repare como as cores mostram lados e ângulos iguais, e como a nova figura é ligada a figuras que a aluna já conhece (losango, retângulo, quadrado).",
+    "region": "Gravação de aula real · LATAM · Nível 7 · falada em espanhol",
+    "subs": [
+     [
+      1373.4,
+      1375.0,
+      "T",
+      "Você sabe o que é baklava?"
+     ],
+     [
+      1382.7,
+      1389.6,
+      "T",
+      "Então, esta sobremesa tradicional…"
+     ],
+     [
+      1391.8,
+      1399.7,
+      "T",
+      "Quando a gente corta em pedaços, que formas você acha que eles fazem?"
+     ],
+     [
+      1399.9,
+      1402.5,
+      "S",
+      "Um paralelogramo?"
+     ],
+     [
+      1403.3,
+      1408.9,
+      "T",
+      "Paralelogramos! Então, o que é um paralelogramo?"
+     ],
+     [
+      1409.4,
+      1419.8,
+      "T",
+      "Um paralelogramo é um quadrilátero — 4 lados — em que os lados opostos…"
+     ],
+     [
+      1421.4,
+      1428.6,
+      "T",
+      "…são iguais: este lado roxo é igual a este roxo aqui."
+     ],
+     [
+      1430.2,
+      1439.5,
+      "T",
+      "E este azul é igual a este azul."
+     ],
+     [
+      1441.3,
+      1445.7,
+      "T",
+      "Iguais e paralelos — nunca se encontram."
+     ],
+     [
+      1447.8,
+      1467.4,
+      "T",
+      "Também tem ângulos opostos: este ângulo vermelho é igual a este, e o verde é igual ao outro verde."
+     ],
+     [
+      1475.9,
+      1477.5,
+      "S",
+      "Isso é um paralelogramo."
+     ],
+     [
+      1478.0,
+      1481.1,
+      "T",
+      "Sim, esta figura é um paralelogramo."
+     ],
+     [
+      1482.5,
+      1500.6,
+      "T",
+      "Os paralelogramos também têm diagonais — e uma diagonal divide a figura em triângulos iguais."
+     ],
+     [
+      1510.6,
+      1524.1,
+      "T",
+      "Há tipos que já conhecemos, como o losango — todos os lados iguais. Incline a cabeça e você vê um losango."
+     ],
+     [
+      1525.5,
+      1546.0,
+      "T",
+      "Um retângulo também é um paralelogramo — a diferença é que os ângulos são retos, de 90 graus."
+     ],
+     [
+      1546.4,
+      1548.2,
+      "S",
+      "Um quadrado também?"
+     ],
+     [
+      1549.2,
+      1560.3,
+      "T",
+      "Um quadrado — sim, também é um paralelogramo: como um losango com ângulos retos."
+     ]
+    ]
+   },
+   "clip-mistake": {
+    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
+    "start": 2358.0,
+    "end": 2516.0,
+    "auto": true,
+    "title": "Lidar com um erro sem dar a resposta",
+    "focus": "A aluna lê um 6 como 8. A tutora não diz a resposta: pergunta \"por que 12 × 8?\", mostra onde olhar e deixa a aluna encontrar o deslize e resolver de novo — e depois elogia o resultado.",
+    "region": "Gravação de aula real · LATAM · Nível 7 · falada em espanhol",
+    "subs": [
+     [
+      2360.3,
+      2371.4,
+      "S",
+      "E agora 12 metros vezes 8…"
+     ],
+     [
+      2377.7,
+      2383.0,
+      "S",
+      "96, menos 20: 76."
+     ],
+     [
+      2384.6,
+      2387.5,
+      "T",
+      "Só uma coisinha — por que 12 vezes 8?"
+     ],
+     [
+      2391.5,
+      2395.2,
+      "T",
+      "Olha bem: ali é um 6."
+     ],
+     [
+      2398.9,
+      2406.4,
+      "T",
+      "Olha aqui — é fácil confundir."
+     ],
+     [
+      2419.5,
+      2423.8,
+      "T",
+      "Sim, parece um 8, mas é um 6."
+     ],
+     [
+      2448.3,
+      2450.2,
+      "S",
+      "Eu tinha dito 76."
+     ],
+     [
+      2452.1,
+      2458.1,
+      "T",
+      "Sim, mas não é 8 — é 6."
+     ],
+     [
+      2469.9,
+      2484.6,
+      "S",
+      "Ah, eu não vi isso. Achei que media o mesmo, então somei 4 — por isso deu 8. Vou fazer de novo."
+     ],
+     [
+      2485.0,
+      2486.1,
+      "T",
+      "Vai lá!"
+     ],
+     [
+      2498.8,
+      2506.1,
+      "S",
+      "…72 menos 20… 52."
+     ],
+     [
+      2506.6,
+      2508.1,
+      "T",
+      "Muito bem!"
+     ],
+     [
+      2508.4,
+      2514.8,
+      "T",
+      "A altura não mede necessariamente o dobro do outro lado."
+     ]
+    ]
+   },
+   "clip-individual": {
+    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
+    "start": 3578.0,
+    "end": 3680.0,
+    "auto": true,
+    "title": "A atividade individual: a aluna trabalha, a tutora orienta",
+    "focus": "A aluna responde aos cartões na plataforma sozinha. A tutora não resolve: só esclarece o que o enunciado diz e corrige uma concepção errada (retângulo não é quadrado) com uma explicação curta.",
+    "region": "Gravação de aula real · LATAM · Nível 7 · falada em espanhol",
+    "subs": [
+     [
+      3580.0,
+      3589.4,
+      "S",
+      "…Tem 2 pares de ângulos opostos."
+     ],
+     [
+      3590.6,
+      3600.1,
+      "T",
+      "Isso. Tem 2 pares de lados opostos: o de cima é oposto ao de baixo."
+     ],
+     [
+      3600.1,
+      3612.7,
+      "S",
+      "Tipo este e este?"
+     ],
+     [
+      3616.4,
+      3624.0,
+      "T",
+      "Estamos falando de lados — o lado de cima inteiro."
+     ],
+     [
+      3624.7,
+      3638.4,
+      "S",
+      "Claro que são iguais. Um paralelogramo tem lados opostos iguais e paralelos… acho que o quadrado poderia ser."
+     ],
+     [
+      3639.0,
+      3653.7,
+      "T",
+      "Muito bem — o quadrado, sim. Mas o retângulo não tem todos os lados iguais; só o quadrado."
+     ],
+     [
+      3661.2,
+      3665.2,
+      "S",
+      "Mas você não me disse que o quadrado era um paralelogramo?"
+     ],
+     [
+      3665.5,
+      3673.7,
+      "T",
+      "Sim, mas aqui diz retângulo, e o retângulo não tem todos os lados iguais. Se dissesse quadrado, seria verdade."
+     ],
+     [
+      3674.4,
+      3676.4,
+      "S",
+      "Entendi, ok."
+     ]
+    ]
+   },
+   "clip-closing": {
+    "src": "https://d1tngwebo1bj0u.cloudfront.net/67ca5e06-5211-42fc-b63a-0f158f41687b_2026-09-08_13:56:37_AAvXsoxFg.mp4",
+    "start": 4415.0,
+    "end": 4503.0,
+    "auto": true,
+    "title": "Um fechamento consistente com um gostinho da próxima aula",
+    "focus": "O tutor acalma a aluna, pergunta \"O que aprendemos hoje?\" e deixa ela responder primeiro, depois resume os objetivos da aula e termina com um gostinho da próxima aventura com Rafi e Sophie.",
+    "region": "Gravação de aula real · LATAM · Nível 6 · falada em espanhol",
+    "subs": [
+     [
+      4416.8,
+      4419.1,
+      "S",
+      "Ai, não entendi…"
+     ],
+     [
+      4419.1,
+      4424.9,
+      "T",
+      "Calma, calma. Já adiantamos bastante a parte individual."
+     ],
+     [
+      4428.1,
+      4431.2,
+      "T",
+      "Muito bem. O que aprendemos hoje?"
+     ],
+     [
+      4432.0,
+      4434.0,
+      "S",
+      "Probabilidades."
+     ],
+     [
+      4435.4,
+      4440.2,
+      "T",
+      "Probabilidades. Muito bem — e o que mais?"
+     ],
+     [
+      4441.1,
+      4446.3,
+      "S",
+      "Também padrões… sequências."
+     ],
+     [
+      4446.3,
+      4469.5,
+      "T",
+      "Muito bem. Hoje aprendemos o que é uma sequência de números e como ela é diferente de um conjunto, como achar termos que faltam com regras e fórmulas, e como identificar padrões e ciclos."
+     ],
+     [
+      4470.2,
+      4477.4,
+      "T",
+      "Na próxima aula vamos revisar tudo o que aprendemos no curso até agora."
+     ],
+     [
+      4477.6,
+      4483.1,
+      "T",
+      "Então prepare-se para uma aventura emocionante — Rafi e Sophie vão sair em expedição com a turma!"
+     ],
+     [
+      4483.5,
+      4494.9,
+      "T",
+      "Por hoje é isso. Obrigado por participar — até mais!"
+     ],
+     [
+      4496.2,
+      4501.1,
+      "T",
+      "…para você adiantar. Até terça que vem, se cuida, tchau!"
+     ]
+    ]
+   },
+   "teach": {
+    "src": "https://d1tngwebo1bj0u.cloudfront.net/d65388cc-5c5e-43d4-bdbb-2a43fd131dc5_2026-09-09_23:26:14_m1Ieh5Oy0.mp4",
+    "start": 180.0,
+    "end": 3796.0,
+    "auto": false,
+    "title": "Uma aula completa: área de paralelogramos",
+    "focus": "O fluxo completo de uma aula com cartões: abertura acolhedora (~3–7 min), revisão (~7–11), a história e a prática guiada (~11–37), uma tarefa mais difícil juntos (~37–47), o trabalho individual na plataforma (~53–62) e o fechamento. Atenção: há alguns problemas técnicos e uma pausa por volta de 47–51 min — você pode pular essa parte.",
+    "region": "Gravação de aula real · LATAM · Nível 7 · falada em espanhol",
+    "subs": []
+   }
   }
  },
  "videoNotes": {
@@ -1616,6 +2392,9 @@ window.COURSE = {
    "badge": "Simulação 2 de 2",
    "title": "Guia da aula no Classroom",
    "text": "Um passo a passo dos primeiros cartões do Nível 5, Aula 1 no Classroom: os cartões em Assignments, as Teacher notes que só você vê, o Slide para o tutor, o Lead the group e um cartão avaliado com verificação automática."
+  },
+  "pledge": {
+   "title": "Checklist de compromisso"
   }
  }
 };
