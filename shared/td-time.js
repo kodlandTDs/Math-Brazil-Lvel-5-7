@@ -15,15 +15,15 @@
        time_finished_at  ISO date when every module was passed ('' until then)
      When the tutor leaves or hides the page, a 'progress' message is sent (at most once a minute),
      so the LMS also has the time of a training left half-way.
-   - Google Sheet (optional): with SHEET_ENABLED = true, ONE row per tutor + training
-     ({type:'training_time', ...}, same format as the Refunds trainings) goes to SHEET_URL.
-     Turn it on only after the Apps Script of that Sheet handles type 'training_time'.
+   - Google Sheet "TD Trainings – Time per module": ONE row per tutor + training
+     ({type:'training_time', repo, ...}) goes to SHEET_URL, one tab per training (repo).
+     The tutor is the e-mail of the start survey / identity step; without one, a random browser id.
    ===================================================================== */
 (function(){
   'use strict';
   /* ---------- CONFIG ---------- */
-  var SHEET_ENABLED = false;
-  var SHEET_URL = window.TD_TIME_SHEET_URL || '';
+  var SHEET_ENABLED = true;
+  var SHEET_URL = window.TD_TIME_SHEET_URL || 'https://script.google.com/macros/s/AKfycbw_9JLpeeQfUniqppJTXbncYW-BVkS4g4astfCwBV8qGTY3vLb6dzbGSEGWzuL4xt0A/exec';
   var IDLE_MS = 120000;   // no input for 2 minutes = not counted
 
   /* ---------- engine globals (read safely: each training engine names them a bit differently) ---------- */
@@ -47,13 +47,19 @@
     if (/[?&]dev=1(&|$)/.test(location.search)) return true;
     return !!g(function(){ return P.dev; }, false) || !!g(function(){ return DEV; }, false);
   }
-  function email(){
+  function identity(){
     var keys = [];
     g(function(){ keys.push('kl-start-survey-' + C.id); });
     g(function(){ keys.push('kl-start-survey-' + T.ID); });
     keys.push('kl-m0-identity');
-    for (var i = 0; i < keys.length; i++){ var e = g(function(){ return (JSON.parse(store(keys[i]) || 'null') || {}).email; }, ''); if (e) return e; }
-    return '';
+    for (var i = 0; i < keys.length; i++){ var v = g(function(){ return JSON.parse(store(keys[i]) || 'null'); }, null); if (v && v.email) return v; }
+    return {};
+  }
+  function repo(){ return (location.pathname.split('/').filter(Boolean)[0] || '').replace(/\.html?$/, ''); }
+  function browserId(){
+    var k = 'kl-td-browser-id', v = store(k);
+    if (!v){ v = 'b-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8); store(k, v); }
+    return v;
   }
 
   /* ---------- safe storage ---------- */
@@ -115,10 +121,11 @@
   /* ---------- optional Google Sheet row (same format as the Refunds trainings) ---------- */
   function sendSheet(beacon){
     if (!SHEET_ENABLED || !SHEET_URL || isDev()) return;
-    var t = load(), mail = email();
-    if (!t.started_at || !mail) return;
+    var t = load(), who = identity();
+    if (!t.started_at) return;
     var ids = modules();
-    var body = JSON.stringify({ type:'training_time', email:mail, training:trainingId(), training_name:trainingId(), lang:lang(),
+    var body = JSON.stringify({ type:'training_time', repo:repo(), email:who.email || '', region:who.region || '', browser_id:browserId(),
+      training:trainingId(), training_name:trainingId(), lang:lang(),
       started_at:t.started_at, finished_at:t.finished_at, completed:!!t.finished_at, active_min:min1(t.total),
       module_ids:ids, module_min:ids.map(function(id){ return min1(t.mods[id]); }) });
     try { if (beacon && navigator.sendBeacon && navigator.sendBeacon(SHEET_URL, new Blob([body], { type:'text/plain;charset=utf-8' }))) return; } catch(e){}

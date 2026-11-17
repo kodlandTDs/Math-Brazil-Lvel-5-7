@@ -68,7 +68,7 @@ function mergeP(a, b){
 }
 let P = {};
 function loadP(){ P = {}; STORE.getAll(PKEY).forEach(raw => { P = mergeP(P, parse(raw) || {}); }); }
-function saveP(){ STORE.set(PKEY, JSON.stringify(P)); lmsSync(); ttOnProgress(); }
+function saveP(){ STORE.set(PKEY, JSON.stringify(P)); lmsSync(); }
 const passed = id => !!(P[id] && P[id].passed);
 function setResult(id, pct, ok){ const o = P[id] || {}; P[id] = Object.assign(o, { passed: ok || !!o.passed, score: Math.max(pct, o.score || 0) }); saveP(); }
 const flag = k => !!(P.flags && P.flags[k]);
@@ -81,52 +81,6 @@ const MODS = C.modules, TOTAL = MODS.length;
 const findMod = id => MODS.find(m => m.id === id);
 const unlocked = m => { const i = MODS.indexOf(m); return P.dev || i <= 0 || passed(MODS[i - 1].id); };
 
-/* ---------- Training time → Google Sheet tab "Module time" (one row per tutor + training) ----------
-   Active time only: page visible + mouse/keyboard/scroll/touch in the last 2 minutes. Counted every 5 s
-   (max 10 s per tick) for the training and the module on screen. Kept in localStorage, so reloads and other
-   days add up. Nothing is counted or sent in developer mode or in the review file. */
-var TT = null, ttLastInput = Date.now(), ttLastTick = Date.now(), ttLastBeacon = 0, ttPassedN = -1;
-const TT_KEY = 'kl-ttime-' + TRAINING_ID;
-const ttOff = () => DEV_ALLOWED || !!P.dev;
-function ttLoad(){ TT = parse(STORE.get(TT_KEY)) || {}; TT.mods = TT.mods || {}; TT.total = Number(TT.total) || 0; ttPassedN = MODS.filter(m => passed(m.id)).length; }
-const ttSave = () => { if (TT) STORE.set(TT_KEY, JSON.stringify(TT)); };
-const ttModOnScreen = () => { const id = location.hash.replace(/^#\/?/, '').split('/')[0]; return MODS.some(m => m.id === id) ? id : null; };
-const ttMin = sec => Math.round(sec / 6) / 10;
-function ttBody(){
-  return JSON.stringify({ type:'training_time', email:(startInfo().email || ''), training:TRAINING_ID, training_name:C.title, lang:C.lang,
-    started_at:TT.started_at, finished_at:TT.finished_at || '', completed:!!TT.finished_at, active_min:ttMin(TT.total),
-    module_ids:MODS.map(m => m.id), module_min:MODS.map(m => ttMin(TT.mods[m.id] || 0)) });
-}
-function ttSend(beacon){
-  if (!TT || ttOff() || !SURVEY_URL || !TT.started_at || !startInfo().email) return;
-  const body = ttBody();
-  try {
-    if (beacon && navigator.sendBeacon && navigator.sendBeacon(SURVEY_URL, new Blob([body], { type:'text/plain;charset=utf-8' }))) return;
-    fetch(SURVEY_URL, { method:'POST', mode:'no-cors', keepalive:true, headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body }).catch(() => {});
-  } catch(e){}
-}
-function ttOnRoute(){          // the first module opened after the start survey = started_at
-  if (!TT || ttOff() || TT.started_at || !ttModOnScreen() || !startSurveyDone()) return;
-  TT.started_at = new Date().toISOString(); ttSave(); ttSend();
-}
-function ttOnProgress(){       // a module passed → send; all done (after the final survey) → finished_at, last send
-  if (!TT || ttOff() || !TT.started_at || TT.finished_at) return;
-  if (allDone()){ TT.finished_at = new Date().toISOString(); ttSave(); ttSend(); return; }
-  const n = MODS.filter(m => passed(m.id)).length;
-  if (n !== ttPassedN){ ttPassedN = n; ttSend(); }
-}
-['mousemove', 'mousedown', 'keydown', 'wheel', 'scroll', 'touchstart'].forEach(ev => addEventListener(ev, () => { ttLastInput = Date.now(); }, { passive:true, capture:true }));
-setInterval(() => {
-  const now = Date.now(), dt = Math.min(10, (now - ttLastTick) / 1000); ttLastTick = now;
-  if (!TT || ttOff() || !TT.started_at || TT.finished_at) return;
-  if (document.visibilityState !== 'visible' || now - ttLastInput > 120000) return;
-  TT.total += dt; const m = ttModOnScreen(); if (m) TT.mods[m] = (TT.mods[m] || 0) + dt; ttSave();
-}, 5000);
-addEventListener('visibilitychange', () => {
-  if (document.visibilityState !== 'hidden' || !TT || ttOff() || !TT.started_at || TT.finished_at) return;
-  if (Date.now() - ttLastBeacon < 60000) return;
-  ttLastBeacon = Date.now(); ttSend(true);
-});
 const allDone = () => MODS.every(m => passed(m.id));
 
 /* ---------- Developer mode: only with ?dev=1 ---------- */
@@ -892,7 +846,6 @@ const go = path => { location.hash = '#/' + path; };
 const curParts = () => location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
 function route(){
   closeModal(); QZ = null;
-  ttOnRoute();
   const [id, sub] = curParts(), m = findMod(id);
   if (!id) renderHome();
   else if (id === 'done' && allDone()) renderDone();
@@ -975,7 +928,6 @@ if (window.__carryP){ P = mergeP(P, parse(window.__carryP) || {}); window.__carr
 if (REVIEW && !P.dev){ P.dev = true; STORE.set(PKEY, JSON.stringify(P)); }
 if (P.dev && !DEV_ALLOWED){ restoreRealProgress(); STORE.set(PKEY, JSON.stringify(P)); }
 lastPassedCount = MODS.filter(m => passed(m.id)).length;
-ttLoad();
 lmsReady = true; lmsSend('ready'); lmsSync();
 devBadge();
 route();
